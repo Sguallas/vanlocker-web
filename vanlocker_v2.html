@@ -1,0 +1,1185 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vanlocker – Libérate del equipaje en Sevilla</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --pink:       #F25E7A;
+  --pink-dark:  #A60A33;
+  --teal:       #0E7373;
+  --teal-dark:  #0E6973;
+  --teal-light: #E0F2F1;
+  --white:      #ffffff;
+  --off:        #FAFAF9;
+  --g100:       #F5F5F3;
+  --g200:       #E8E8E4;
+  --g500:       #9B9B94;
+  --g800:       #3A3A36;
+  --dark:       #0D1F1F;
+  --r20:20px; --r12:12px; --r50:50px;
+}
+
+html { scroll-behavior: smooth; }
+body { font-family:'Plus Jakarta Sans',sans-serif; color:var(--dark); background:var(--white); overflow-x:hidden; }
+
+/* ── UTILS ── */
+.tag {
+  display:inline-block;
+  background:rgba(242,94,122,0.12); color:var(--pink-dark);
+  font-size:12px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase;
+  padding:6px 16px; border-radius:var(--r50); margin-bottom:18px;
+}
+.tag.teal { background:rgba(14,115,115,0.1); color:var(--teal); }
+
+.btn-primary {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--pink); color:var(--white);
+  font-family:'Plus Jakarta Sans',sans-serif; font-size:15px; font-weight:700;
+  padding:16px 32px; border-radius:var(--r50);
+  text-decoration:none; border:none; cursor:pointer;
+  transition:transform .25s, box-shadow .25s, background .25s; letter-spacing:-.01em;
+}
+.btn-primary:hover { transform:translateY(-2px); box-shadow:0 12px 32px rgba(242,94,122,.38); background:var(--pink-dark); }
+
+.btn-secondary {
+  display:inline-flex; align-items:center; gap:8px;
+  background:transparent; color:var(--white);
+  font-family:'Plus Jakarta Sans',sans-serif; font-size:15px; font-weight:600;
+  padding:15px 30px; border-radius:var(--r50); border:1.5px solid rgba(255,255,255,.55);
+  text-decoration:none; cursor:pointer; transition:border-color .2s, background .2s;
+}
+.btn-secondary:hover { border-color:var(--white); background:rgba(255,255,255,.1); }
+
+.btn-dark {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--teal); color:var(--white);
+  font-family:'Plus Jakarta Sans',sans-serif; font-size:15px; font-weight:700;
+  padding:16px 32px; border-radius:var(--r50);
+  text-decoration:none; border:none; cursor:pointer; transition:transform .25s, box-shadow .25s;
+}
+.btn-dark:hover { transform:translateY(-2px); box-shadow:0 12px 32px rgba(14,115,115,.35); }
+
+/* ── NAV ── */
+nav {
+  position:fixed; top:0; left:0; right:0; z-index:200;
+  padding:22px 48px; display:flex; align-items:center; justify-content:space-between;
+  transition:background .4s, backdrop-filter .4s, padding .3s;
+}
+nav.scrolled {
+  background:rgba(255,255,255,.94); backdrop-filter:blur(18px);
+  padding:14px 48px; box-shadow:0 1px 0 rgba(0,0,0,.07);
+}
+.logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
+.logo-mark {
+  width:40px; height:40px; background:var(--pink); border-radius:12px;
+  display:flex; align-items:center; justify-content:center;
+}
+.logo-mark svg { width:24px; height:24px; fill:none; stroke:white; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
+.logo-name { font-size:20px; font-weight:800; color:var(--white); letter-spacing:-.5px; transition:color .3s; }
+.logo-name span { color:var(--pink); }
+nav.scrolled .logo-name { color:var(--dark); }
+.nav-links { display:flex; align-items:center; gap:36px; list-style:none; }
+.nav-links a { font-size:14px; font-weight:500; text-decoration:none; color:rgba(255,255,255,.88); transition:opacity .2s; }
+nav.scrolled .nav-links a { color:var(--g800); }
+.nav-links a:hover { opacity:.65; }
+.lang-toggle {
+  font-size:13px; font-weight:600; cursor:pointer;
+  background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3);
+  color:white; padding:6px 14px; border-radius:50px; transition:background .2s;
+}
+nav.scrolled .lang-toggle { background:var(--g100); border-color:var(--g200); color:var(--dark); }
+.nav-cta-btn {
+  background:var(--pink); color:white !important; padding:10px 22px;
+  border-radius:50px; font-weight:700 !important; font-size:14px !important;
+  text-decoration:none; transition:transform .2s, box-shadow .2s;
+}
+.nav-cta-btn:hover { transform:translateY(-1px) !important; box-shadow:0 6px 20px rgba(242,94,122,.4); opacity:1 !important; }
+.burger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
+.burger span { width:24px; height:2px; background:white; border-radius:2px; transition:background .3s; }
+nav.scrolled .burger span { background:var(--dark); }
+
+/* ── HERO ── */
+.hero {
+  position:relative; height:100vh; min-height:640px;
+  display:flex; align-items:center; justify-content:center; overflow:hidden;
+}
+.hero-video-wrap { position:absolute; inset:0; }
+.hero-video-wrap video { width:100%; height:100%; object-fit:cover; }
+.hero-bg-fallback {
+  position:absolute; inset:0;
+  background:
+    linear-gradient(160deg, rgba(10,25,25,.88) 0%, rgba(14,115,115,.6) 55%, rgba(166,10,51,.3) 100%),
+    url('https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=1800&q=85') center/cover no-repeat;
+}
+.hero-video-wrap::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(160deg, rgba(10,25,25,.75) 0%, rgba(14,115,115,.48) 55%, rgba(166,10,51,.28) 100%);
+}
+.hero-content {
+  position:relative; z-index:2; text-align:center;
+  max-width:780px; padding:0 24px;
+}
+.hero-eyebrow {
+  display:inline-block;
+  background:rgba(242,94,122,.2); border:1px solid rgba(242,94,122,.4); color:#F9A8BA;
+  font-size:12px; font-weight:700; letter-spacing:.1em; text-transform:uppercase;
+  padding:8px 20px; border-radius:50px; margin-bottom:24px;
+  animation:fadeUp .7s ease both;
+}
+.hero h1 {
+  font-family:'Fraunces',serif; font-size:clamp(40px,6.5vw,78px); font-weight:700;
+  line-height:1.07; color:var(--white); letter-spacing:-.02em; margin-bottom:22px;
+  animation:fadeUp .7s .1s ease both;
+}
+.hero h1 em { font-style:italic; color:#F9A8BA; }
+.hero p {
+  font-size:clamp(16px,2vw,20px); color:rgba(255,255,255,.82); line-height:1.6;
+  margin-bottom:40px; max-width:540px; margin-left:auto; margin-right:auto;
+  animation:fadeUp .7s .2s ease both;
+}
+.hero-btns { display:flex; gap:14px; justify-content:center; flex-wrap:wrap; animation:fadeUp .7s .3s ease both; }
+.hero-scroll {
+  position:absolute; bottom:36px; left:50%; transform:translateX(-50%);
+  z-index:2; display:flex; flex-direction:column; align-items:center; gap:8px;
+  color:rgba(255,255,255,.6); font-size:12px; letter-spacing:.06em;
+  animation:fadeUp .7s .6s ease both;
+}
+.hero-scroll-dot {
+  width:28px; height:44px; border:1.5px solid rgba(255,255,255,.3); border-radius:14px;
+  display:flex; justify-content:center; padding-top:8px;
+}
+.hero-scroll-dot span { width:4px; height:8px; background:white; border-radius:2px; animation:scrollDot 1.8s ease-in-out infinite; }
+
+/* ── STRIP ── */
+.strip { background:var(--teal); overflow:hidden; }
+.strip-inner { display:flex; white-space:nowrap; animation:marquee 22s linear infinite; }
+.strip-inner span {
+  display:inline-flex; align-items:center; gap:20px; padding:16px 32px;
+  font-size:13px; font-weight:600; letter-spacing:.04em; color:rgba(255,255,255,.9);
+  text-transform:uppercase; flex-shrink:0;
+}
+.strip-inner span::before { content:'✦'; color:var(--pink); font-size:10px; }
+
+/* ── SECTION BASE ── */
+.section { padding:100px 48px; }
+.section-inner { max-width:1180px; margin:0 auto; }
+.section-header { text-align:center; margin-bottom:64px; }
+.section-header h2 {
+  font-family:'Fraunces',serif; font-size:clamp(32px,4vw,52px); font-weight:700;
+  line-height:1.1; letter-spacing:-.02em; margin-bottom:16px;
+}
+.section-header p { font-size:17px; color:var(--g500); max-width:500px; margin:0 auto; line-height:1.65; }
+
+/* ── 3D ICON STEPS ── */
+.steps-grid {
+  display:grid; grid-template-columns:repeat(3,1fr); gap:28px;
+}
+.step-card {
+  background:var(--white); border:1px solid var(--g200); border-radius:28px;
+  padding:40px 32px 36px; position:relative; overflow:hidden;
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1), box-shadow .35s;
+  cursor:default;
+}
+.step-card:hover { transform:translateY(-10px) scale(1.01); box-shadow:0 32px 64px rgba(0,0,0,.1); }
+/* soft glow accent top */
+.step-card::before {
+  content:''; position:absolute; top:-40px; left:50%; transform:translateX(-50%);
+  width:120px; height:80px; border-radius:50%;
+  background:radial-gradient(ellipse, rgba(242,94,122,.18), transparent 70%);
+  transition:opacity .35s;
+}
+.step-card:hover::before { opacity:2; }
+
+/* 3D icon container */
+.icon3d {
+  width:80px; height:80px; margin:0 auto 28px;
+  position:relative; display:flex; align-items:center; justify-content:center;
+}
+/* 3D face layers */
+.icon3d-body {
+  width:64px; height:64px; border-radius:20px;
+  display:flex; align-items:center; justify-content:center;
+  position:relative; z-index:2;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.6) inset,
+    0 8px 0 -2px rgba(0,0,0,.15),
+    0 12px 20px rgba(0,0,0,.18);
+  transition:transform .35s cubic-bezier(.34,1.56,.64,1);
+}
+.step-card:hover .icon3d-body { transform:translateY(-4px) rotateX(8deg); }
+/* Each icon its own gradient */
+.icon3d-body.pink { background:linear-gradient(145deg, #F98FA3 0%, #F25E7A 40%, #A60A33 100%); }
+.icon3d-body.teal { background:linear-gradient(145deg, #1FB0B0 0%, #0E7373 40%, #0E4040 100%); }
+.icon3d-body.gold { background:linear-gradient(145deg, #F9D06B 0%, #F5A623 40%, #B5720A 100%); }
+/* 3D bottom shadow face */
+.icon3d-body::after {
+  content:''; position:absolute; bottom:-8px; left:4px; right:4px;
+  height:8px; border-radius:0 0 16px 16px;
+  background:rgba(0,0,0,.18); filter:blur(2px); z-index:-1;
+}
+.icon3d-body svg { width:32px; height:32px; stroke:white; stroke-width:2; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+
+.step-card h3 { font-size:20px; font-weight:700; margin-bottom:12px; letter-spacing:-.02em; text-align:center; }
+.step-card p { font-size:15px; color:var(--g500); line-height:1.65; text-align:center; }
+.step-num {
+  position:absolute; top:20px; right:24px;
+  font-family:'Fraunces',serif; font-size:48px; font-weight:700;
+  color:var(--g200); line-height:1; letter-spacing:-.03em; pointer-events:none;
+}
+
+/* ── PHOTO GRID (viajeros felices) ── */
+.photos-section { padding:80px 48px; background:var(--g100); }
+.photos-header { text-align:center; margin-bottom:48px; }
+.photos-header h2 { font-family:'Fraunces',serif; font-size:clamp(28px,3.5vw,46px); font-weight:700; letter-spacing:-.02em; margin-bottom:12px; }
+.photos-header p { font-size:16px; color:var(--g500); }
+
+.photo-masonry {
+  max-width:1180px; margin:0 auto;
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  grid-template-rows:auto;
+  gap:16px;
+}
+.photo-item {
+  position:relative; overflow:hidden; border-radius:20px;
+  cursor:pointer;
+}
+/* Airbnb-style hover overlay */
+.photo-item::after {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(to top, rgba(13,31,31,.7) 0%, transparent 55%);
+  opacity:0; transition:opacity .35s;
+}
+.photo-item:hover::after { opacity:1; }
+.photo-item img {
+  width:100%; height:100%; object-fit:cover; display:block;
+  transition:transform .6s cubic-bezier(.25,.46,.45,.94);
+}
+.photo-item:hover img { transform:scale(1.07); }
+.photo-caption {
+  position:absolute; bottom:16px; left:16px; right:16px;
+  color:white; font-size:14px; font-weight:600; z-index:2;
+  opacity:0; transform:translateY(8px); transition:opacity .3s, transform .3s;
+}
+.photo-item:hover .photo-caption { opacity:1; transform:translateY(0); }
+
+/* Mosaic layout */
+.photo-item:nth-child(1) { grid-column:1/3; grid-row:1/2; height:320px; }
+.photo-item:nth-child(2) { grid-column:3/4; grid-row:1/2; height:320px; }
+.photo-item:nth-child(3) { grid-column:4/5; grid-row:1/2; height:320px; }
+.photo-item:nth-child(4) { grid-column:1/2; grid-row:2/3; height:260px; }
+.photo-item:nth-child(5) { grid-column:2/4; grid-row:2/3; height:260px; }
+.photo-item:nth-child(6) { grid-column:4/5; grid-row:2/3; height:260px; }
+
+/* ── SHOWCASE (dark) ── */
+.showcase {
+  background:var(--dark); padding:100px 48px; overflow:hidden; position:relative;
+}
+.showcase::before {
+  content:''; position:absolute; top:-120px; right:-120px;
+  width:500px; height:500px; border-radius:50%;
+  background:radial-gradient(circle, rgba(14,115,115,.25), transparent 70%);
+}
+.showcase-inner {
+  max-width:1180px; margin:0 auto;
+  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+}
+.showcase-text .tag { background:rgba(242,94,122,.2); color:#F9A8BA; }
+.showcase-text h2 {
+  font-family:'Fraunces',serif; font-size:clamp(30px,3.5vw,48px); font-weight:700;
+  color:var(--white); line-height:1.12; letter-spacing:-.02em; margin-bottom:20px;
+}
+.showcase-text h2 em { font-style:italic; color:var(--pink); }
+.showcase-text p { font-size:16px; color:rgba(255,255,255,.65); line-height:1.7; margin-bottom:36px; }
+.showcase-features { list-style:none; display:flex; flex-direction:column; gap:16px; }
+.showcase-features li {
+  display:flex; align-items:flex-start; gap:14px;
+  font-size:15px; color:rgba(255,255,255,.8);
+}
+.feat-icon {
+  flex-shrink:0; width:32px; height:32px; border-radius:10px;
+  background:linear-gradient(135deg, var(--teal), var(--teal-dark));
+  display:flex; align-items:center; justify-content:center;
+  box-shadow:0 4px 12px rgba(14,115,115,.35);
+}
+.feat-icon svg { width:16px; height:16px; stroke:white; stroke-width:2.5; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+
+/* phone mockup */
+.showcase-visual { position:relative; }
+.phone-mockup {
+  width:260px; margin:0 auto;
+  background:#0D1F1F; border:2px solid rgba(255,255,255,.12); border-radius:44px;
+  padding:14px; box-shadow:0 40px 100px rgba(0,0,0,.6), 0 0 0 1px rgba(255,255,255,.04);
+}
+.phone-screen { background:var(--off); border-radius:33px; overflow:hidden; aspect-ratio:9/19; }
+.phone-screen-inner { padding:20px 16px 16px; height:100%; display:flex; flex-direction:column; gap:12px; }
+.ps-bar { height:32px; border-radius:8px; background:linear-gradient(90deg,var(--pink),var(--pink-dark)); }
+.ps-card { background:white; border-radius:12px; padding:14px; box-shadow:0 2px 8px rgba(0,0,0,.06); flex-shrink:0; }
+.ps-card-label { font-size:9px; color:var(--g500); text-transform:uppercase; letter-spacing:.06em; margin-bottom:6px; }
+.ps-card-title { font-size:13px; font-weight:700; color:var(--dark); margin-bottom:4px; }
+.ps-card-sub { font-size:10px; color:var(--teal); font-weight:600; }
+.ps-map { flex:1; border-radius:12px; background:linear-gradient(135deg,#c8e6c9,#a5d6a7 40%,#81c784); position:relative; overflow:hidden; }
+.ps-map::before { content:''; position:absolute; inset:0; background:url("data:image/svg+xml,%3Csvg width='60' height='60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0 30 L60 30 M30 0 L30 60' stroke='rgba(255,255,255,0.3)' stroke-width='0.5'/%3E%3C/svg%3E") repeat; }
+.ps-map-pin { position:absolute; top:40%; left:50%; width:20px; height:20px; background:var(--pink); border-radius:50% 50% 50% 0; transform:translate(-50%,-50%) rotate(-45deg); box-shadow:0 4px 12px rgba(242,94,122,.5); }
+.phone-glow { position:absolute; bottom:-40px; left:50%; transform:translateX(-50%); width:200px; height:80px; background:radial-gradient(ellipse,rgba(242,94,122,.4),transparent 70%); filter:blur(20px); }
+.floating-badge {
+  position:absolute; background:white; border-radius:14px; padding:12px 16px;
+  box-shadow:0 12px 40px rgba(0,0,0,.25); font-size:13px; font-weight:600; color:var(--dark); white-space:nowrap;
+}
+.badge-1 { top:60px; left:-80px; animation:float 3.5s ease-in-out infinite; }
+.badge-2 { bottom:100px; right:-70px; animation:float 4s ease-in-out infinite .8s; }
+
+/* ── STATS ── */
+.stats { background:var(--g100); padding:80px 48px; }
+.stats-inner {
+  max-width:960px; margin:0 auto;
+  display:grid; grid-template-columns:repeat(4,1fr); gap:8px;
+}
+.stat-item {
+  text-align:center; padding:36px 20px;
+  background:white; border-radius:var(--r20); border:1px solid var(--g200);
+  transition:transform .3s;
+}
+.stat-item:hover { transform:translateY(-4px); }
+.stat-num {
+  font-family:'Fraunces',serif; font-size:48px; font-weight:700; letter-spacing:-.03em;
+  background:linear-gradient(135deg,var(--pink),var(--pink-dark));
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+  line-height:1; margin-bottom:8px;
+}
+.stat-label { font-size:13px; color:var(--g500); font-weight:500; line-height:1.4; }
+
+/* ── AI SECTION ── */
+.ai-section { padding:100px 48px; background:var(--white); }
+.ai-inner {
+  max-width:1180px; margin:0 auto;
+  display:grid; grid-template-columns:1fr 1fr; gap:80px; align-items:center;
+}
+.ai-visual {
+  background:linear-gradient(135deg,var(--teal) 0%,var(--teal-dark) 100%);
+  border-radius:28px; padding:40px 36px; min-height:400px;
+  display:flex; flex-direction:column; justify-content:space-between;
+  position:relative; overflow:hidden;
+}
+.ai-visual::before { content:''; position:absolute; top:-60px; right:-60px; width:200px; height:200px; border-radius:50%; border:40px solid rgba(255,255,255,.06); }
+.ai-visual::after { content:''; position:absolute; bottom:-40px; left:-40px; width:150px; height:150px; border-radius:50%; border:30px solid rgba(255,255,255,.05); }
+.ai-label { font-size:11px; font-weight:700; letter-spacing:.1em; text-transform:uppercase; color:rgba(255,255,255,.6); margin-bottom:8px; }
+.ai-message { background:rgba(255,255,255,.1); border-radius:16px; border:1px solid rgba(255,255,255,.12); padding:16px 20px; color:white; font-size:14px; line-height:1.6; position:relative; z-index:1; }
+.ai-message + .ai-message { margin-top:10px; }
+.ai-message.user { background:rgba(242,94,122,.2); border-color:rgba(242,94,122,.25); margin-left:32px; }
+.ai-title-area { position:relative; z-index:1; }
+.ai-title-area h3 { font-family:'Fraunces',serif; font-size:22px; color:white; font-weight:700; margin-bottom:6px; }
+.ai-title-area p { font-size:13px; color:rgba(255,255,255,.6); }
+.ai-text h2 { font-family:'Fraunces',serif; font-size:clamp(30px,3.5vw,48px); font-weight:700; line-height:1.12; letter-spacing:-.02em; margin-bottom:20px; }
+.ai-text h2 em { font-style:italic; color:var(--teal); }
+.ai-text p { font-size:16px; color:var(--g500); line-height:1.7; margin-bottom:32px; }
+.ai-perks { display:flex; flex-direction:column; gap:18px; margin-bottom:36px; }
+.ai-perk { display:flex; gap:16px; align-items:flex-start; }
+.ai-perk-icon { width:44px; height:44px; flex-shrink:0; background:var(--teal-light); border-radius:12px; display:flex; align-items:center; justify-content:center; }
+.ai-perk-icon svg { width:22px; height:22px; stroke:var(--teal); stroke-width:2; fill:none; stroke-linecap:round; stroke-linejoin:round; }
+.ai-perk-text h4 { font-size:15px; font-weight:700; margin-bottom:3px; }
+.ai-perk-text p { font-size:14px; color:var(--g500); line-height:1.55; }
+
+/* ── PRICING ── */
+.pricing { padding:100px 48px; background:var(--off); }
+.pricing-grid {
+  max-width:920px; margin:64px auto 0;
+  display:grid; grid-template-columns:repeat(3,1fr); gap:20px;
+}
+.price-card {
+  background:white; border:1px solid var(--g200); border-radius:var(--r20); padding:36px 28px;
+  transition:transform .3s, box-shadow .3s;
+}
+.price-card:hover { transform:translateY(-6px); box-shadow:0 20px 50px rgba(0,0,0,.08); }
+.price-card.featured {
+  background:linear-gradient(160deg, var(--pink), var(--pink-dark)); border-color:transparent;
+}
+.price-card.featured * { color:white !important; }
+.price-label { font-size:12px; font-weight:700; text-transform:uppercase; letter-spacing:.08em; color:var(--g500); margin-bottom:16px; }
+.price-card.featured .price-label { color:rgba(255,255,255,.65) !important; }
+.price-amount { font-family:'Fraunces',serif; font-size:52px; font-weight:700; letter-spacing:-.03em; color:var(--dark); line-height:1; margin-bottom:4px; }
+.price-amount sup { font-size:24px; vertical-align:super; }
+.price-amount sub { font-size:16px; font-weight:400; }
+.price-note { font-size:12px; color:var(--g500); margin-bottom:8px; line-height:1.4; }
+.price-extra { font-size:13px; font-weight:600; color:var(--teal); margin-bottom:24px; }
+.price-card.featured .price-extra { color:rgba(255,255,255,.85) !important; }
+.price-features { list-style:none; display:flex; flex-direction:column; gap:12px; }
+.price-features li { font-size:14px; display:flex; align-items:center; gap:10px; color:var(--g800); }
+.price-features li::before {
+  content:'✓'; width:20px; height:20px; flex-shrink:0;
+  background:var(--teal-light); border-radius:50%;
+  display:inline-flex; align-items:center; justify-content:center;
+  font-size:11px; font-weight:700; color:var(--teal);
+}
+.price-card.featured .price-features li::before { background:rgba(255,255,255,.2); color:white; }
+.price-badge {
+  display:inline-block; background:rgba(255,255,255,.25);
+  font-size:11px; font-weight:700; letter-spacing:.05em; text-transform:uppercase;
+  padding:4px 12px; border-radius:50px; color:white; margin-bottom:20px;
+}
+/* pricing info box */
+.pricing-info {
+  max-width:920px; margin:28px auto 0;
+  background:var(--teal-light); border-radius:var(--r12);
+  padding:18px 24px; display:flex; align-items:center; gap:14px;
+}
+.pricing-info svg { width:22px; height:22px; stroke:var(--teal); stroke-width:2; fill:none; flex-shrink:0; }
+.pricing-info p { font-size:14px; color:var(--teal-dark); line-height:1.55; }
+.pricing-info strong { font-weight:700; }
+
+/* ── TESTIMONIALS ── */
+.testimonials { padding:100px 48px; }
+.testimonials-grid { max-width:1100px; margin:64px auto 0; display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.testimonial-card { background:var(--off); border:1px solid var(--g200); border-radius:var(--r20); padding:32px 28px; transition:transform .3s; }
+.testimonial-card:hover { transform:translateY(-4px); }
+.stars { color:var(--pink); font-size:16px; margin-bottom:16px; letter-spacing:2px; }
+.testimonial-text { font-size:15px; line-height:1.7; color:var(--g800); margin-bottom:24px; font-style:italic; }
+.testimonial-author { display:flex; align-items:center; gap:12px; }
+.author-avatar { width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:white; flex-shrink:0; }
+.author-name { font-size:14px; font-weight:700; color:var(--dark); }
+.author-meta { font-size:12px; color:var(--g500); }
+
+/* ── DOWNLOAD ── */
+.download { background:linear-gradient(135deg,var(--dark) 0%,#1A2C2C 100%); padding:120px 48px; position:relative; overflow:hidden; text-align:center; }
+.download::before { content:''; position:absolute; top:-200px; left:50%; transform:translateX(-50%); width:800px; height:400px; border-radius:50%; background:radial-gradient(ellipse,rgba(242,94,122,.18),transparent 65%); }
+.download::after { content:''; position:absolute; bottom:-200px; left:50%; transform:translateX(-50%); width:600px; height:300px; border-radius:50%; background:radial-gradient(ellipse,rgba(14,115,115,.2),transparent 65%); }
+.download-inner { max-width:680px; margin:0 auto; position:relative; z-index:1; }
+.download h2 { font-family:'Fraunces',serif; font-size:clamp(36px,5vw,64px); font-weight:700; color:white; line-height:1.08; letter-spacing:-.02em; margin-bottom:20px; }
+.download h2 em { font-style:italic; color:var(--pink); }
+.download p { font-size:17px; color:rgba(255,255,255,.65); line-height:1.65; margin-bottom:48px; }
+.store-btns { display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-bottom:24px; }
+.store-btn {
+  display:flex; align-items:center; gap:12px;
+  background:rgba(255,255,255,.08); border:1.5px solid rgba(255,255,255,.18); border-radius:16px;
+  padding:14px 24px; text-decoration:none; color:white; transition:background .25s, border-color .25s, transform .25s; min-width:180px;
+}
+.store-btn:hover { background:rgba(255,255,255,.14); border-color:rgba(255,255,255,.35); transform:translateY(-2px); }
+.store-btn svg { width:28px; height:28px; fill:white; }
+.store-btn-text { text-align:left; }
+.store-btn-text small { display:block; font-size:10px; color:rgba(255,255,255,.55); text-transform:uppercase; letter-spacing:.05em; }
+.store-btn-text strong { display:block; font-size:16px; font-weight:700; }
+.download-note { font-size:13px; color:rgba(255,255,255,.4); }
+
+/* ── CONTACT ── */
+.contact { padding:100px 48px; background:var(--white); }
+.contact-inner { max-width:800px; margin:0 auto; text-align:center; }
+.contact-inner h2 { font-family:'Fraunces',serif; font-size:clamp(28px,3.5vw,46px); font-weight:700; margin-bottom:14px; letter-spacing:-.02em; }
+.contact-inner p { font-size:16px; color:var(--g500); margin-bottom:48px; }
+.contact-form { display:grid; grid-template-columns:1fr 1fr; gap:16px; text-align:left; }
+.form-group { display:flex; flex-direction:column; gap:6px; }
+.form-group.full { grid-column:1/-1; }
+.form-group label { font-size:13px; font-weight:600; color:var(--g800); }
+.form-group input, .form-group textarea, .form-group select {
+  width:100%; padding:14px 18px; border:1.5px solid var(--g200); border-radius:var(--r12);
+  font-family:'Plus Jakarta Sans',sans-serif; font-size:15px; color:var(--dark);
+  background:var(--off); outline:none; transition:border-color .2s, box-shadow .2s;
+}
+.form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color:var(--pink); box-shadow:0 0 0 3px rgba(242,94,122,.12); }
+.form-group textarea { resize:vertical; min-height:110px; }
+.form-submit { grid-column:1/-1; text-align:center; margin-top:8px; }
+
+/* ── FOOTER ── */
+footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,.6); }
+.footer-inner { max-width:1180px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; margin-bottom:56px; }
+.footer-brand p { font-size:14px; color:rgba(255,255,255,.5); line-height:1.7; margin-top:16px; max-width:260px; }
+.footer-col h4 { font-size:13px; font-weight:700; color:white; text-transform:uppercase; letter-spacing:.07em; margin-bottom:20px; }
+.footer-col ul { list-style:none; display:flex; flex-direction:column; gap:10px; }
+.footer-col ul a { text-decoration:none; font-size:14px; color:rgba(255,255,255,.5); transition:color .2s; }
+.footer-col ul a:hover { color:var(--pink); }
+.footer-bottom { border-top:1px solid rgba(255,255,255,.08); padding-top:28px; display:flex; justify-content:space-between; align-items:center; font-size:13px; flex-wrap:wrap; gap:12px; }
+.social-links { display:flex; gap:14px; }
+.social-link { width:36px; height:36px; border:1px solid rgba(255,255,255,.15); border-radius:50%; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,.6); text-decoration:none; font-size:14px; transition:border-color .2s, color .2s; }
+.social-link:hover { border-color:var(--pink); color:var(--pink); }
+
+/* ── MOBILE MENU ── */
+.mobile-menu { display:none; position:fixed; inset:0; z-index:190; background:var(--dark); flex-direction:column; align-items:center; justify-content:center; gap:28px; }
+.mobile-menu.open { display:flex; }
+.mobile-menu a { font-size:24px; font-weight:700; color:white; text-decoration:none; letter-spacing:-.02em; }
+.mobile-menu a:hover { color:var(--pink); }
+.mobile-close { position:absolute; top:24px; right:24px; background:none; border:none; color:white; font-size:28px; cursor:pointer; padding:8px; }
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+@keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+@keyframes scrollDot { 0%{opacity:1;transform:translateY(0)} 80%{opacity:0;transform:translateY(12px)} 100%{opacity:0;transform:translateY(0)} }
+@keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
+
+.reveal { opacity:0; transform:translateY(32px); transition:opacity .7s ease, transform .7s ease; }
+.reveal.visible { opacity:1; transform:translateY(0); }
+
+/* ── RESPONSIVE ── */
+@media(max-width:1100px) {
+  .photo-masonry { grid-template-columns:repeat(3,1fr); }
+  .photo-item:nth-child(1) { grid-column:1/3; }
+  .photo-item:nth-child(5) { grid-column:2/4; }
+  .photo-item:nth-child(6) { display:none; }
+}
+@media(max-width:900px) {
+  .nav-links { display:none; } .burger { display:flex; }
+  .steps-grid { grid-template-columns:1fr; }
+  .showcase-inner { grid-template-columns:1fr; gap:48px; }
+  .showcase-visual { display:none; }
+  .ai-inner { grid-template-columns:1fr; gap:48px; }
+  .stats-inner { grid-template-columns:repeat(2,1fr); }
+  .pricing-grid { grid-template-columns:1fr; max-width:400px; }
+  .testimonials-grid { grid-template-columns:1fr; }
+  .footer-inner { grid-template-columns:1fr 1fr; }
+  .contact-form { grid-template-columns:1fr; }
+  nav { padding:18px 24px; }
+  .section,.showcase,.download,.pricing,.testimonials,.contact,.photos-section { padding:72px 24px; }
+  footer { padding:56px 24px 28px; }
+  .photo-masonry { grid-template-columns:repeat(2,1fr); }
+  .photo-item:nth-child(n) { grid-column:auto; grid-row:auto; height:220px; }
+}
+@media(max-width:580px) {
+  .hero-btns,.store-btns { flex-direction:column; align-items:center; }
+  .stats-inner { grid-template-columns:repeat(2,1fr); }
+  .footer-inner { grid-template-columns:1fr; gap:32px; }
+  .footer-bottom { flex-direction:column; text-align:center; }
+  nav { padding:16px 20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- MOBILE MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <button class="mobile-close" id="mobileClose">✕</button>
+  <a href="#como-funciona" onclick="closeMobile()"><span id="mm-how">Cómo funciona</span></a>
+  <a href="#ia" onclick="closeMobile()"><span id="mm-ai">IA Turística</span></a>
+  <a href="#precios" onclick="closeMobile()"><span id="mm-prices">Tarifas</span></a>
+  <a href="#contacto" onclick="closeMobile()"><span id="mm-contact">Contacto</span></a>
+  <a href="https://play.google.com/store/apps/details?id=com.vanlocker.cliente" class="btn-primary" onclick="closeMobile()">
+    <span id="mm-dl">Descargar App</span>
+  </a>
+</div>
+
+<!-- NAV -->
+<nav id="navbar">
+  <a href="#" class="logo">
+    <div class="logo-mark">
+      <svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M7 6V5a2 2 0 014 0v1M13 6V5a2 2 0 014 0v1"/><line x1="3" y1="11" x2="21" y2="11"/></svg>
+    </div>
+    <span class="logo-name">Van<span>locker</span></span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#como-funciona" id="nav-how">Cómo funciona</a></li>
+    <li><a href="#ia" id="nav-ai">IA Turística</a></li>
+    <li><a href="#precios" id="nav-prices">Tarifas</a></li>
+    <li><a href="#contacto" id="nav-contact">Contacto</a></li>
+    <li><button class="lang-toggle" id="langToggle" onclick="toggleLang()">EN</button></li>
+    <li><a href="https://play.google.com/store/apps/details?id=com.vanlocker.cliente" class="nav-cta-btn" id="nav-cta">Descargar App</a></li>
+  </ul>
+  <div class="burger" id="burgerBtn"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="inicio">
+  <div class="hero-video-wrap">
+    <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=1800&q=85">
+      <!-- <source src="tu-video-sevilla.mp4" type="video/mp4"> -->
+    </video>
+    <div class="hero-bg-fallback"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-eyebrow" id="hero-tag">🧳 Sevilla, España · Servicio Premium</div>
+    <h1 id="hero-h1">Libérate del equipaje, <em>vive Sevilla</em></h1>
+    <p id="hero-p">Recogemos y entregamos tus maletas donde y cuando quieras. Tú disfruta la ciudad, nosotros cuidamos el resto.</p>
+    <div class="hero-btns">
+      <a href="https://play.google.com/store/apps/details?id=com.vanlocker.cliente" class="btn-primary" id="hero-cta1">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Descargar gratis
+      </a>
+      <a href="#como-funciona" class="btn-secondary" id="hero-cta2">Ver cómo funciona</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-dot"><span></span></div>
+    <span id="hero-scroll-txt">Descubre más</span>
+  </div>
+</section>
+
+<!-- STRIP -->
+<div class="strip">
+  <div class="strip-inner" id="strip">
+    <span>Recogida en hoteles</span><span>Entrega en aeropuerto</span><span>Tracking en tiempo real</span>
+    <span>IA turística incluida</span><span>Pago seguro</span><span>Conductores verificados</span>
+    <span>Sevilla centro</span><span>Triana &amp; Nervión</span>
+    <span>Recogida en hoteles</span><span>Entrega en aeropuerto</span><span>Tracking en tiempo real</span>
+    <span>IA turística incluida</span><span>Pago seguro</span><span>Conductores verificados</span>
+    <span>Sevilla centro</span><span>Triana &amp; Nervión</span>
+  </div>
+</div>
+
+<!-- HOW IT WORKS — 3D ICONS -->
+<section class="section" id="como-funciona">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="tag" id="how-tag">Cómo funciona</div>
+      <h2 id="how-h2">Tres pasos, cero estrés</h2>
+      <p id="how-p">Tan sencillo como pedir un taxi. Todo desde la app, en minutos.</p>
+    </div>
+    <div class="steps-grid">
+
+      <!-- Paso 1 -->
+      <div class="step-card reveal">
+        <div class="step-num">01</div>
+        <div class="icon3d">
+          <div class="icon3d-body pink">
+            <!-- Icono: teléfono/app -->
+            <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/><circle cx="12" cy="17" r="1" fill="white" stroke="none"/></svg>
+          </div>
+        </div>
+        <h3 id="step1-h">Reserva en la app</h3>
+        <p id="step1-p">Indica dónde recoger, dónde entregar y cuándo. Elige tu franja horaria y confirma en segundos.</p>
+      </div>
+
+      <!-- Paso 2 -->
+      <div class="step-card reveal">
+        <div class="step-num">02</div>
+        <div class="icon3d">
+          <div class="icon3d-body teal">
+            <!-- Icono: furgoneta -->
+            <svg viewBox="0 0 24 24"><path d="M1 3h15v13H1z"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+          </div>
+        </div>
+        <h3 id="step2-h">Recogemos en tu puerta</h3>
+        <p id="step2-p">Un conductor verificado llega en la hora acordada. Seguimiento en tiempo real desde la app.</p>
+      </div>
+
+      <!-- Paso 3 -->
+      <div class="step-card reveal">
+        <div class="step-num">03</div>
+        <div class="icon3d">
+          <div class="icon3d-body gold">
+            <!-- Icono: sol/disfruta -->
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          </div>
+        </div>
+        <h3 id="step3-h">Disfruta sin cargas</h3>
+        <p id="step3-p">Recorre Sevilla con total libertad. Te entregamos el equipaje donde quieras, cuando quieras.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- PHOTO GRID — viajeros felices -->
+<section class="photos-section">
+  <div class="photos-header reveal">
+    <div class="tag" id="photos-tag">Experiencias reales</div>
+    <h2 id="photos-h2">Así se disfruta Sevilla <em style="font-family:'Fraunces',serif;font-style:italic;color:var(--pink)">sin peso</em></h2>
+    <p id="photos-p">Miles de viajeros ya exploran la ciudad con las manos libres gracias a Vanlocker.</p>
+  </div>
+  <div class="photo-masonry">
+
+    <div class="photo-item">
+      <!-- Pareja feliz en plaza de España -->
+      <img src="https://images.unsplash.com/photo-1501555088652-021faa106b9b?w=800&q=80&fit=crop" alt="Viajeros disfrutando en Sevilla" loading="lazy">
+      <div class="photo-caption" id="pc1">😊 Sin maletas, más sonrisas</div>
+    </div>
+
+    <div class="photo-item">
+      <!-- Turista con café, relajado -->
+      <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=600&q=80&fit=crop" alt="Viajera tomando café sin preocupaciones" loading="lazy">
+      <div class="photo-caption" id="pc2">☕ Tiempo para lo que importa</div>
+    </div>
+
+    <div class="photo-item">
+      <!-- Familia pasando en ciudad -->
+      <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80&fit=crop" alt="Familia disfrutando de la ciudad" loading="lazy">
+      <div class="photo-caption" id="pc3">👨‍👩‍👧 Perfecta para familias</div>
+    </div>
+
+    <div class="photo-item">
+      <!-- Amigos en azotea/terraza -->
+      <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=500&q=80&fit=crop" alt="Amigos viajando libres" loading="lazy">
+      <div class="photo-caption" id="pc4">🎉 Viajes sin límites</div>
+    </div>
+
+    <div class="photo-item">
+      <!-- Calles de Sevilla / viajeros -->
+      <img src="https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?w=800&q=80&fit=crop" alt="Explorar Sevilla con libertad" loading="lazy">
+      <div class="photo-caption" id="pc5">🗺️ Explora cada rincón de Sevilla</div>
+    </div>
+
+    <div class="photo-item">
+      <!-- Mujer con sombrero / verano -->
+      <img src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=500&q=80&fit=crop" alt="Viajera feliz sin equipaje" loading="lazy">
+      <div class="photo-caption" id="pc6">✨ Libre y feliz</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- SHOWCASE DARK -->
+<section class="showcase">
+  <div class="showcase-inner">
+    <div class="showcase-text">
+      <div class="tag" id="show-tag">Por qué Vanlocker</div>
+      <h2 id="show-h2"><em>Sevilla entera</em> al alcance de la mano</h2>
+      <p id="show-p">Sin maletas, la ciudad cambia. Entras en cualquier bar, subes a cualquier tranvía, cruzas cualquier puerta. Vanlocker te devuelve la libertad de moverte.</p>
+      <ul class="showcase-features">
+        <li>
+          <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+          <span id="feat1">Conductores propios de Vanlocker, no freelance — máxima seguridad para tu equipaje</span>
+        </li>
+        <li>
+          <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <span id="feat2">Cobertura en Centro, Triana, Santa Justa, Aeropuerto y todo Nervión</span>
+        </li>
+        <li>
+          <div class="feat-icon"><svg viewBox="0 0 24 24"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg></div>
+          <span id="feat3">Pago 100% seguro mediante Stripe — sin sorpresas ni costes ocultos</span>
+        </li>
+        <li>
+          <div class="feat-icon"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+          <span id="feat4">Soporte 24h con bot de voz en español e inglés y chat en tiempo real</span>
+        </li>
+      </ul>
+    </div>
+    <div class="showcase-visual">
+      <div class="phone-mockup">
+        <div class="phone-screen">
+          <div class="phone-screen-inner">
+            <div class="ps-bar"></div>
+            <div class="ps-card">
+              <div class="ps-card-label">Reserva activa</div>
+              <div class="ps-card-title">Hotel Alfonso XIII → SVQ</div>
+              <div class="ps-card-sub">En camino · 8 min</div>
+            </div>
+            <div class="ps-map"><div class="ps-map-pin"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="phone-glow"></div>
+      <div class="floating-badge badge-1">✅ Equipaje recogido</div>
+      <div class="floating-badge badge-2">📍 En camino al aeropuerto</div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS -->
+<section class="stats">
+  <div class="stats-inner">
+    <div class="stat-item reveal"><div class="stat-num" data-target="2000" data-suffix="">0</div><div class="stat-label" id="stat1-l">Maletas transportadas</div></div>
+    <div class="stat-item reveal"><div class="stat-num" data-target="98" data-suffix="%">0</div><div class="stat-label" id="stat2-l">Clientes satisfechos</div></div>
+    <div class="stat-item reveal"><div class="stat-num" data-target="30" data-suffix=" min">0</div><div class="stat-label" id="stat3-l">Tiempo medio de recogida</div></div>
+    <div class="stat-item reveal"><div class="stat-num" data-target="5" data-suffix="★">0</div><div class="stat-label" id="stat4-l">Valoración en Google Play</div></div>
+  </div>
+</section>
+
+<!-- AI SECTION -->
+<section class="ai-section" id="ia">
+  <div class="ai-inner">
+    <div class="ai-visual">
+      <div class="ai-title-area">
+        <h3>🤖 Vanlocker IA</h3>
+        <p id="ai-subtitle">Tu guía de Sevilla personal</p>
+      </div>
+      <div>
+        <div class="ai-label" id="ai-you">Tú preguntas…</div>
+        <div class="ai-message user" id="ai-msg-user">¿Qué puedo hacer en Sevilla estas 4 horas con niños?</div>
+        <div class="ai-label" style="margin-top:14px" id="ai-ia">IA responde…</div>
+        <div class="ai-message" id="ai-msg-bot">¡Perfecto para una mañana! Te recomiendo: Parque María Luisa (30 min a pie), luego el Pabellón de la Navegación con exhibiciones interactivas, y termina con tapas en el Mercado del Arenal. Tu equipaje está asegurado 🧳✨</div>
+      </div>
+    </div>
+    <div class="ai-text">
+      <div class="tag teal" id="ai-tag">Inteligencia Artificial</div>
+      <h2 id="ai-h2">Mientras esperas, <em>descubre Sevilla</em></h2>
+      <p id="ai-p">Nuestra IA integrada conoce Sevilla palmo a palmo. Mientras tu equipaje viaja seguro, tú recibes recomendaciones personalizadas: tapas, monumentos, rutas, tiendas y mucho más.</p>
+      <div class="ai-perks">
+        <div class="ai-perk">
+          <div class="ai-perk-icon"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div class="ai-perk-text"><h4 id="perk1-h">Rutas personalizadas</h4><p id="perk1-p">La IA tiene en cuenta tu tiempo libre, tus preferencias y la distancia desde tu ubicación.</p></div>
+        </div>
+        <div class="ai-perk">
+          <div class="ai-perk-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+          <div class="ai-perk-text"><h4 id="perk2-h">Para todo tipo de viajero</h4><p id="perk2-p">Familias, parejas, solo travellers, grupos — la IA adapta las sugerencias a tu perfil.</p></div>
+        </div>
+        <div class="ai-perk">
+          <div class="ai-perk-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg></div>
+          <div class="ai-perk-text"><h4 id="perk3-h">En español e inglés</h4><p id="perk3-p">Responde en tu idioma. Soporte completo para turistas internacionales.</p></div>
+        </div>
+      </div>
+      <a href="https://play.google.com/store/apps/details?id=com.vanlocker.cliente" class="btn-dark" id="ai-cta">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Probar ahora gratis
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- PRICING — precios actualizados -->
+<section class="pricing" id="precios">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="tag" id="price-tag">Tarifas</div>
+      <h2 id="price-h2">Simple y transparente</h2>
+      <p id="price-p">Sin letra pequeña. El precio que ves es el precio que pagas.</p>
+    </div>
+    <div class="pricing-grid">
+
+      <!-- PLAN BÁSICO -->
+      <div class="price-card reveal">
+        <div class="price-label" id="p1-label">Servicio individual</div>
+        <div class="price-amount"><sup>€</sup><span id="p1-price">20</span></div>
+        <div class="price-note" id="p1-note">primera maleta</div>
+        <div class="price-extra" id="p1-extra">+ €6 por cada maleta adicional</div>
+        <ul class="price-features">
+          <li id="p1-f1">Recogida y entrega</li>
+          <li id="p1-f2">Tracking en tiempo real</li>
+          <li id="p1-f3">IA turística incluida</li>
+          <li id="p1-f4">Pago seguro con Stripe</li>
+        </ul>
+      </div>
+
+      <!-- PLAN FAMILIA — DESTACADO -->
+      <div class="price-card featured reveal">
+        <div class="price-badge" id="p2-badge">⚡ Más popular</div>
+        <div class="price-label" id="p2-label">Familia (3 maletas)</div>
+        <div class="price-amount"><sup>€</sup><span id="p2-price">32</span></div>
+        <div class="price-note" id="p2-note">1ª maleta + 2 adicionales</div>
+        <div class="price-extra" id="p2-extra">Ahorra vs precio unitario</div>
+        <ul class="price-features">
+          <li id="p2-f1">3 maletas en un servicio</li>
+          <li id="p2-f2">Prioridad en asignación</li>
+          <li id="p2-f3">IA turística completa</li>
+          <li id="p2-f4">Soporte prioritario</li>
+          <li id="p2-f5">Perfecto para familias</li>
+        </ul>
+      </div>
+
+      <!-- PLAN GRUPO -->
+      <div class="price-card reveal">
+        <div class="price-label" id="p3-label">Grupo (5+ maletas)</div>
+        <div class="price-amount"><sup>€</sup><span id="p3-price">44</span></div>
+        <div class="price-note" id="p3-note">1ª maleta + 4 adicionales</div>
+        <div class="price-extra" id="p3-extra">Contacta para grupos grandes</div>
+        <ul class="price-features">
+          <li id="p3-f1">5 maletas incluidas</li>
+          <li id="p3-f2">Conductor dedicado</li>
+          <li id="p3-f3">Factura para empresas</li>
+          <li id="p3-f4">IA turística completa</li>
+          <li id="p3-f5">Atención directa 24h</li>
+        </ul>
+      </div>
+
+    </div>
+    <!-- Nota informativa -->
+    <div class="pricing-info reveal">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <p id="price-info"><strong>¿Más maletas?</strong> El precio es siempre €20 la primera maleta + €6 por cada maleta adicional, sin importar cuántas sean. Para grupos grandes o empresas, <a href="#contacto" style="color:var(--teal);font-weight:700;">contáctanos</a> para condiciones especiales.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIALS -->
+<section class="testimonials" id="opiniones">
+  <div class="section-inner">
+    <div class="section-header reveal">
+      <div class="tag" id="test-tag">Testimonios</div>
+      <h2 id="test-h2">Lo que dicen nuestros viajeros</h2>
+    </div>
+    <div class="testimonials-grid">
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text" id="t1-text">"Increíble servicio. Llegamos al hotel, dejamos las maletas con Vanlocker y nos fuimos directos a la Giralda. Al volver al aeropuerto, todo listo. Sin estrés."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:linear-gradient(135deg,#F25E7A,#A60A33)">MK</div>
+          <div><div class="author-name">Marie K.</div><div class="author-meta" id="t1-meta">París, Francia · Abril 2025</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text" id="t2-text">"Lo usamos en familia con tres niños y tres maletas enormes. El conductor llegó puntual, muy amable. La app es superintuitiva. Lo recomiendo 100%."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:linear-gradient(135deg,#0E7373,#0E6973)">JR</div>
+          <div><div class="author-name">Jorge R.</div><div class="author-meta" id="t2-meta">Madrid · Mayo 2025</div></div>
+        </div>
+      </div>
+      <div class="testimonial-card reveal">
+        <div class="stars">★★★★★</div>
+        <p class="testimonial-text" id="t3-text">"The AI recommendations were a game changer. I had 3 hours free and the app suggested a perfect tapas route. And my bags arrived perfectly on time."</p>
+        <div class="testimonial-author">
+          <div class="author-avatar" style="background:linear-gradient(135deg,#F25E7A,#0E7373)">LT</div>
+          <div><div class="author-name">Lena T.</div><div class="author-meta" id="t3-meta">Berlin, Germany · March 2025</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<section class="download" id="descarga">
+  <div class="download-inner reveal">
+    <div class="tag" style="background:rgba(242,94,122,.2);color:#F9A8BA;" id="dl-tag">Disponible ahora</div>
+    <h2 id="dl-h2">Tu primera reserva, <em>a un tap de distancia</em></h2>
+    <p id="dl-p">Únete a los miles de viajeros que ya disfrutan Sevilla sin cargas. Gratis en Google Play.</p>
+    <div class="store-btns">
+      <a href="https://play.google.com/store/apps/details?id=com.vanlocker.cliente" class="store-btn">
+        <svg viewBox="0 0 24 24"><path d="M3 20.5v-17c0-.83 1-1.3 1.65-.8l13 8.5c.6.4.6 1.2 0 1.6l-13 8.5c-.65.5-1.65.03-1.65-.8z"/></svg>
+        <div class="store-btn-text">
+          <small id="dl-store-txt">Disponible en</small>
+          <strong>Google Play</strong>
+        </div>
+      </a>
+      <a href="#" class="store-btn" style="opacity:.5;cursor:not-allowed;">
+        <svg viewBox="0 0 24 24"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98l-.09.06c-.22.14-2.15 1.26-2.13 3.76.03 2.98 2.61 3.97 2.64 3.98l-.06.14zM13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <div class="store-btn-text">
+          <small id="dl-soon">Próximamente</small>
+          <strong>App Store</strong>
+        </div>
+      </a>
+    </div>
+    <p class="download-note" id="dl-note">✓ Gratis · ✓ Sin anuncios · ✓ Pago seguro por Stripe</p>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="contact" id="contacto">
+  <div class="contact-inner reveal">
+    <div class="tag" id="contact-tag">Contacto</div>
+    <h2 id="contact-h2">¿Tienes alguna duda?</h2>
+    <p id="contact-p">Escríbenos y te respondemos en menos de 24 horas. También puedes usar el chat en la app.</p>
+    <form class="contact-form" onsubmit="handleForm(event)">
+      <div class="form-group"><label id="fl-name">Nombre</label><input type="text" placeholder="Tu nombre" required></div>
+      <div class="form-group"><label id="fl-email">Email</label><input type="email" placeholder="tu@email.com" required></div>
+      <div class="form-group full">
+        <label id="fl-subject">Asunto</label>
+        <select>
+          <option id="fs-1">Información sobre el servicio</option>
+          <option id="fs-2">Problema con una reserva</option>
+          <option id="fs-3">Empresas y grupos</option>
+          <option id="fs-4">Otro</option>
+        </select>
+      </div>
+      <div class="form-group full"><label id="fl-msg">Mensaje</label><textarea placeholder="Cuéntanos en qué podemos ayudarte..." required></textarea></div>
+      <div class="form-submit">
+        <button type="submit" class="btn-primary" id="contact-btn">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg>
+          Enviar mensaje
+        </button>
+      </div>
+    </form>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <a href="#" class="logo">
+        <div class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M7 6V5a2 2 0 014 0v1M13 6V5a2 2 0 014 0v1"/><line x1="3" y1="11" x2="21" y2="11"/></svg></div>
+        <span class="logo-name">Van<span>locker</span></span>
+      </a>
+      <p id="footer-desc">Tu servicio de custodia y entrega de equipaje en Sevilla. Libérate, disfruta, vuelve.</p>
+    </div>
+    <div class="footer-col">
+      <h4 id="fc1-title">Servicio</h4>
+      <ul>
+        <li><a href="#como-funciona" id="fc1-1">Cómo funciona</a></li>
+        <li><a href="#precios" id="fc1-2">Tarifas</a></li>
+        <li><a href="#ia" id="fc1-3">IA Turística</a></li>
+        <li><a href="#descarga" id="fc1-4">Descargar app</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 id="fc2-title">Empresa</h4>
+      <ul>
+        <li><a href="#" id="fc2-1">Sobre nosotros</a></li>
+        <li><a href="#contacto" id="fc2-2">Contacto</a></li>
+        <li><a href="#" id="fc2-3">Trabaja con nosotros</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4 id="fc3-title">Legal</h4>
+      <ul>
+        <li><a href="#" id="fc3-1">Política de privacidad</a></li>
+        <li><a href="#" id="fc3-2">Términos de uso</a></li>
+        <li><a href="#" id="fc3-3">Cookies</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span id="footer-copy">© 2025 Vanlocker. Todos los derechos reservados. Sevilla, España.</span>
+    <div class="social-links">
+      <a href="#" class="social-link">IG</a>
+      <a href="#" class="social-link">TK</a>
+      <a href="#" class="social-link">𝕏</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// NAV SCROLL
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', scrollY > 60));
+
+// BURGER
+document.getElementById('burgerBtn').addEventListener('click', () => document.getElementById('mobileMenu').classList.add('open'));
+document.getElementById('mobileClose').addEventListener('click', closeMobile);
+function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
+
+// REVEAL
+const obs = new IntersectionObserver(entries => {
+  entries.forEach((e,i) => { if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*80); obs.unobserve(e.target); } });
+}, { threshold:.12 });
+document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
+
+// COUNTERS
+function animateCounter(el) {
+  const target = parseInt(el.dataset.target);
+  const suffix = el.dataset.suffix || '';
+  let cur = 0;
+  const step = Math.ceil(target / 60);
+  const iv = setInterval(() => {
+    cur = Math.min(cur + step, target);
+    el.textContent = cur + suffix;
+    if(cur >= target) clearInterval(iv);
+  }, 24);
+}
+const statObs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting){ e.target.querySelectorAll('[data-target]').forEach(animateCounter); statObs.unobserve(e.target); } });
+}, { threshold:.3 });
+const statsEl = document.querySelector('.stats');
+if(statsEl) statObs.observe(statsEl);
+
+// FORM
+function handleForm(e) {
+  e.preventDefault();
+  const btn = document.getElementById('contact-btn');
+  btn.innerHTML = '✓ Mensaje enviado';
+  btn.style.background = 'var(--teal)';
+  setTimeout(() => { btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg> Enviar mensaje'; btn.style.background=''; }, 3000);
+}
+
+// LANGUAGE
+const isES = { v: true };
+const T = {
+  es: {
+    'hero-tag':'🧳 Sevilla, España · Servicio Premium',
+    'hero-h1':'Libérate del equipaje, <em>vive Sevilla</em>',
+    'hero-p':'Recogemos y entregamos tus maletas donde y cuando quieras. Tú disfruta la ciudad, nosotros cuidamos el resto.',
+    'hero-scroll-txt':'Descubre más',
+    'nav-how':'Cómo funciona','nav-ai':'IA Turística','nav-prices':'Tarifas','nav-contact':'Contacto','nav-cta':'Descargar App','langToggle':'EN',
+    'how-tag':'Cómo funciona','how-h2':'Tres pasos, cero estrés','how-p':'Tan sencillo como pedir un taxi. Todo desde la app, en minutos.',
+    'step1-h':'Reserva en la app','step1-p':'Indica dónde recoger, dónde entregar y cuándo. Elige tu franja horaria y confirma en segundos.',
+    'step2-h':'Recogemos en tu puerta','step2-p':'Un conductor verificado llega en la hora acordada. Seguimiento en tiempo real desde la app.',
+    'step3-h':'Disfruta sin cargas','step3-p':'Recorre Sevilla con total libertad. Te entregamos el equipaje donde quieras, cuando quieras.',
+    'photos-tag':'Experiencias reales','photos-h2':'Así se disfruta Sevilla <em style="font-family:Fraunces,serif;font-style:italic;color:var(--pink)">sin peso</em>','photos-p':'Miles de viajeros ya exploran la ciudad con las manos libres gracias a Vanlocker.',
+    'pc1':'😊 Sin maletas, más sonrisas','pc2':'☕ Tiempo para lo que importa','pc3':'👨‍👩‍👧 Perfecta para familias','pc4':'🎉 Viajes sin límites','pc5':'🗺️ Explora cada rincón de Sevilla','pc6':'✨ Libre y feliz',
+    'show-tag':'Por qué Vanlocker','show-h2':'<em>Sevilla entera</em> al alcance de la mano',
+    'show-p':'Sin maletas, la ciudad cambia. Entras en cualquier bar, subes a cualquier tranvía, cruzas cualquier puerta. Vanlocker te devuelve la libertad de moverte.',
+    'feat1':'Conductores propios de Vanlocker, no freelance — máxima seguridad para tu equipaje',
+    'feat2':'Cobertura en Centro, Triana, Santa Justa, Aeropuerto y todo Nervión',
+    'feat3':'Pago 100% seguro mediante Stripe — sin sorpresas ni costes ocultos',
+    'feat4':'Soporte 24h con bot de voz en español e inglés y chat en tiempo real',
+    'stat1-l':'Maletas transportadas','stat2-l':'Clientes satisfechos','stat3-l':'Tiempo medio de recogida','stat4-l':'Valoración en Google Play',
+    'ai-tag':'Inteligencia Artificial','ai-h2':'Mientras esperas, <em>descubre Sevilla</em>','ai-subtitle':'Tu guía de Sevilla personal',
+    'ai-you':'Tú preguntas…','ai-ia':'IA responde…',
+    'ai-p':'Nuestra IA integrada conoce Sevilla palmo a palmo. Mientras tu equipaje viaja seguro, tú recibes recomendaciones personalizadas: tapas, monumentos, rutas, tiendas y mucho más.',
+    'ai-msg-user':'¿Qué puedo hacer en Sevilla estas 4 horas con niños?',
+    'ai-msg-bot':'¡Perfecto para una mañana! Te recomiendo: Parque María Luisa (30 min a pie), luego el Pabellón de la Navegación con exhibiciones interactivas, y termina con tapas en el Mercado del Arenal. Tu equipaje está asegurado 🧳✨',
+    'perk1-h':'Rutas personalizadas','perk1-p':'La IA tiene en cuenta tu tiempo libre, tus preferencias y la distancia desde tu ubicación.',
+    'perk2-h':'Para todo tipo de viajero','perk2-p':'Familias, parejas, solo travellers, grupos — la IA adapta las sugerencias a tu perfil.',
+    'perk3-h':'En español e inglés','perk3-p':'Responde en tu idioma. Soporte completo para turistas internacionales.',
+    'ai-cta':'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Probar ahora gratis',
+    'price-tag':'Tarifas','price-h2':'Simple y transparente','price-p':'Sin letra pequeña. El precio que ves es el precio que pagas.',
+    'p1-label':'Servicio individual','p1-price':'20','p1-note':'primera maleta','p1-extra':'+ €6 por cada maleta adicional','p1-f1':'Recogida y entrega','p1-f2':'Tracking en tiempo real','p1-f3':'IA turística incluida','p1-f4':'Pago seguro con Stripe',
+    'p2-badge':'⚡ Más popular','p2-label':'Familia (3 maletas)','p2-price':'32','p2-note':'1ª maleta + 2 adicionales','p2-extra':'Ahorra vs precio unitario','p2-f1':'3 maletas en un servicio','p2-f2':'Prioridad en asignación','p2-f3':'IA turística completa','p2-f4':'Soporte prioritario','p2-f5':'Perfecto para familias',
+    'p3-label':'Grupo (5 maletas)','p3-price':'44','p3-note':'1ª maleta + 4 adicionales','p3-extra':'Contacta para grupos grandes','p3-f1':'5 maletas incluidas','p3-f2':'Conductor dedicado','p3-f3':'Factura para empresas','p3-f4':'IA turística completa','p3-f5':'Atención directa 24h',
+    'price-info':'<strong>¿Más maletas?</strong> El precio es siempre €20 la primera maleta + €6 por cada maleta adicional. Para grupos grandes o empresas, <a href="#contacto" style="color:var(--teal);font-weight:700;">contáctanos</a> para condiciones especiales.',
+    'test-tag':'Testimonios','test-h2':'Lo que dicen nuestros viajeros',
+    't1-text':'"Increíble servicio. Llegamos al hotel, dejamos las maletas con Vanlocker y nos fuimos directos a la Giralda. Al volver al aeropuerto, todo listo. Sin estrés."','t1-meta':'París, Francia · Abril 2025',
+    't2-text':'"Lo usamos en familia con tres niños y tres maletas enormes. El conductor llegó puntual, muy amable. La app es superintuitiva. Lo recomiendo 100%."','t2-meta':'Madrid · Mayo 2025',
+    't3-text':'"The AI recommendations were a game changer. I had 3 hours free and the app suggested a perfect tapas route. And my bags arrived perfectly on time."','t3-meta':'Berlin, Germany · March 2025',
+    'dl-tag':'Disponible ahora','dl-h2':'Tu primera reserva, <em>a un tap de distancia</em>','dl-p':'Únete a los miles de viajeros que ya disfrutan Sevilla sin cargas. Gratis en Google Play.','dl-store-txt':'Disponible en','dl-soon':'Próximamente','dl-note':'✓ Gratis · ✓ Sin anuncios · ✓ Pago seguro por Stripe',
+    'contact-tag':'Contacto','contact-h2':'¿Tienes alguna duda?','contact-p':'Escríbenos y te respondemos en menos de 24 horas. También puedes usar el chat en la app.',
+    'fl-name':'Nombre','fl-email':'Email','fl-subject':'Asunto','fl-msg':'Mensaje',
+    'fs-1':'Información sobre el servicio','fs-2':'Problema con una reserva','fs-3':'Empresas y grupos','fs-4':'Otro',
+    'contact-btn':'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg> Enviar mensaje',
+    'footer-desc':'Tu servicio de custodia y entrega de equipaje en Sevilla. Libérate, disfruta, vuelve.',
+    'fc1-title':'Servicio','fc1-1':'Cómo funciona','fc1-2':'Tarifas','fc1-3':'IA Turística','fc1-4':'Descargar app',
+    'fc2-title':'Empresa','fc2-1':'Sobre nosotros','fc2-2':'Contacto','fc2-3':'Trabaja con nosotros',
+    'fc3-title':'Legal','fc3-1':'Política de privacidad','fc3-2':'Términos de uso','fc3-3':'Cookies',
+    'footer-copy':'© 2025 Vanlocker. Todos los derechos reservados. Sevilla, España.',
+    'mm-how':'Cómo funciona','mm-ai':'IA Turística','mm-prices':'Tarifas','mm-contact':'Contacto','mm-dl':'Descargar App',
+  },
+  en: {
+    'hero-tag':'🧳 Seville, Spain · Premium Service',
+    'hero-h1':'Drop your luggage, <em>live Seville</em>',
+    'hero-p':'We pick up and deliver your bags wherever and whenever you need. You explore the city, we handle the rest.',
+    'hero-scroll-txt':'Discover more',
+    'nav-how':'How it works','nav-ai':'AI Guide','nav-prices':'Pricing','nav-contact':'Contact','nav-cta':'Get the App','langToggle':'ES',
+    'how-tag':'How it works','how-h2':'Three steps, zero stress','how-p':'As simple as calling a taxi. Everything from the app, in minutes.',
+    'step1-h':'Book in seconds','step1-p':'Set pick-up and delivery locations and times. Choose your time slot and confirm. That easy.',
+    'step2-h':'We come to your door','step2-p':'A verified driver arrives at the agreed time. Real-time tracking in the app keeps you in the loop.',
+    'step3-h':'Enjoy hands-free','step3-p':'Explore Seville without luggage. We deliver wherever you want, whenever you want.',
+    'photos-tag':'Real experiences','photos-h2':'This is how you enjoy Seville <em style="font-family:Fraunces,serif;font-style:italic;color:var(--pink)">hands-free</em>','photos-p':'Thousands of travellers already explore the city hands-free thanks to Vanlocker.',
+    'pc1':'😊 No bags, more smiles','pc2':'☕ Time for what matters','pc3':'👨‍👩‍👧 Perfect for families','pc4':'🎉 Travel without limits','pc5':'🗺️ Explore every corner of Seville','pc6':'✨ Free and happy',
+    'show-tag':'Why Vanlocker','show-h2':'<em>All of Seville</em> within reach',
+    'show-p':'Without bags, the city changes. You walk into any bar, hop on any tram, cross any door. Vanlocker gives you back the freedom to move.',
+    'feat1':'Vanlocker\'s own drivers, not freelancers — maximum safety for your luggage',
+    'feat2':'Coverage in Centro, Triana, Santa Justa, Airport and all Nervión',
+    'feat3':'100% secure payment via Stripe — no hidden costs or surprises',
+    'feat4':'24h support with voice bot in Spanish & English and real-time chat',
+    'stat1-l':'Bags transported','stat2-l':'Satisfied customers','stat3-l':'Average pick-up time','stat4-l':'Rating on Google Play',
+    'ai-tag':'Artificial Intelligence','ai-h2':'While you wait, <em>discover Seville</em>','ai-subtitle':'Your personal Seville guide',
+    'ai-you':'You ask…','ai-ia':'AI replies…',
+    'ai-p':'Our built-in AI knows Seville inside out. While your luggage travels safely, you get real-time personalised recommendations: tapas, monuments, routes, shops and much more.',
+    'ai-msg-user':'What can I do in Seville with 4 free hours and two kids?',
+    'ai-msg-bot':'Perfect for a morning! I recommend: Parque María Luisa (30 min walk), then the Pabellón de la Navegación with interactive exhibits, and finish with tapas at Mercado del Arenal. Your luggage is safe 🧳✨',
+    'perk1-h':'Personalised routes','perk1-p':'The AI takes into account your free time, preferences and distance from your location.',
+    'perk2-h':'For every traveller','perk2-p':'Families, couples, solo travellers, groups — the AI adapts suggestions to your profile.',
+    'perk3-h':'In Spanish & English','perk3-p':'Replies in your language. Full support for international tourists.',
+    'ai-cta':'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Try it free now',
+    'price-tag':'Pricing','price-h2':'Simple and transparent','price-p':'No fine print. The price you see is the price you pay.',
+    'p1-label':'Single service','p1-price':'20','p1-note':'first bag','p1-extra':'+ €6 per additional bag','p1-f1':'Pick-up & delivery','p1-f2':'Real-time tracking','p1-f3':'AI guide included','p1-f4':'Secure payment via Stripe',
+    'p2-badge':'⚡ Most popular','p2-label':'Family (3 bags)','p2-price':'32','p2-note':'1st bag + 2 extra','p2-extra':'Save vs individual price','p2-f1':'3 bags in one service','p2-f2':'Priority assignment','p2-f3':'Full AI guide','p2-f4':'Priority support','p2-f5':'Perfect for families',
+    'p3-label':'Group (5 bags)','p3-price':'44','p3-note':'1st bag + 4 extra','p3-extra':'Contact us for larger groups','p3-f1':'5 bags included','p3-f2':'Dedicated driver','p3-f3':'Business invoice','p3-f4':'Full AI guide','p3-f5':'Direct 24h support',
+    'price-info':'<strong>More bags?</strong> The price is always €20 for the first bag + €6 per additional bag. For large groups or businesses, <a href="#contacto" style="color:var(--teal);font-weight:700;">contact us</a> for special rates.',
+    'test-tag':'Reviews','test-h2':'What our travellers say',
+    't1-text':'"Incredible service. We handed our bags to Vanlocker and headed straight to the Giralda. By the time we reached the airport, everything was waiting. Zero stress."','t1-meta':'Paris, France · April 2025',
+    't2-text':'"We used it as a family with three kids and three huge suitcases. The driver was on time and super friendly. The app is incredibly intuitive. 100% recommended."','t2-meta':'Madrid · May 2025',
+    't3-text':'"The AI recommendations were a game changer. I had 3 hours free and the app suggested a perfect tapas route. And my bags arrived perfectly on time."','t3-meta':'Berlin, Germany · March 2025',
+    'dl-tag':'Available now','dl-h2':'Your first booking, <em>one tap away</em>','dl-p':'Join thousands of travellers already exploring Seville hands-free. Free on Google Play.','dl-store-txt':'Get it on','dl-soon':'Coming soon','dl-note':'✓ Free · ✓ No ads · ✓ Secure payment via Stripe',
+    'contact-tag':'Contact','contact-h2':'Any questions?','contact-p':'Write to us and we\'ll get back to you within 24 hours. You can also use the chat in the app.',
+    'fl-name':'Name','fl-email':'Email','fl-subject':'Subject','fl-msg':'Message',
+    'fs-1':'Service information','fs-2':'Issue with a booking','fs-3':'Groups & businesses','fs-4':'Other',
+    'contact-btn':'<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg> Send message',
+    'footer-desc':'Your luggage storage & delivery service in Seville. Drop it, enjoy it, come back for it.',
+    'fc1-title':'Service','fc1-1':'How it works','fc1-2':'Pricing','fc1-3':'AI Guide','fc1-4':'Download app',
+    'fc2-title':'Company','fc2-1':'About us','fc2-2':'Contact','fc2-3':'Work with us',
+    'fc3-title':'Legal','fc3-1':'Privacy policy','fc3-2':'Terms of use','fc3-3':'Cookies',
+    'footer-copy':'© 2025 Vanlocker. All rights reserved. Seville, Spain.',
+    'mm-how':'How it works','mm-ai':'AI Guide','mm-prices':'Pricing','mm-contact':'Contact','mm-dl':'Get the App',
+  }
+};
+
+function toggleLang() {
+  isES.v = !isES.v;
+  document.documentElement.lang = isES.v ? 'es' : 'en';
+  document.title = isES.v ? 'Vanlocker – Libérate del equipaje en Sevilla' : 'Vanlocker – Luggage pickup & delivery in Seville';
+  const t = isES.v ? T.es : T.en;
+  for(const [id,val] of Object.entries(t)){
+    const el = document.getElementById(id);
+    if(el) el.innerHTML = val;
+  }
+  const strip = document.getElementById('strip');
+  if(strip){
+    const items = isES.v
+      ? ['Recogida en hoteles','Entrega en aeropuerto','Tracking en tiempo real','IA turística incluida','Pago seguro','Conductores verificados','Sevilla centro','Triana &amp; Nervión']
+      : ['Hotel pick-up','Airport delivery','Real-time tracking','AI guide included','Secure payment','Verified drivers','Seville centre','Triana &amp; Nervión'];
+    strip.innerHTML = [...items,...items].map(i=>`<span>${i}</span>`).join('');
+  }
+}
+</script>
+</body>
+</html>
