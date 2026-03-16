@@ -8,7 +8,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,400&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,700;1,9..144,400&display=swap" rel="stylesheet">
 <style>
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
- 
+
 :root {
   --pink:       #F25E7A;
   --pink-dark:  #A60A33;
@@ -24,10 +24,10 @@
   --dark:       #0D1F1F;
   --r20:20px; --r12:12px; --r50:50px;
 }
- 
+
 html { scroll-behavior: smooth; }
 body { font-family:'Plus Jakarta Sans',sans-serif; color:var(--dark); background:var(--white); overflow-x:hidden; }
- 
+
 /* ── UTILS ── */
 .tag {
   display:inline-block;
@@ -36,7 +36,7 @@ body { font-family:'Plus Jakarta Sans',sans-serif; color:var(--dark); background
   padding:6px 16px; border-radius:var(--r50); margin-bottom:18px;
 }
 .tag.teal { background:rgba(14,115,115,0.1); color:var(--teal); }
- 
+
 .btn-primary {
   display:inline-flex; align-items:center; gap:8px;
   background:var(--pink); color:var(--white);
@@ -46,7 +46,7 @@ body { font-family:'Plus Jakarta Sans',sans-serif; color:var(--dark); background
   transition:transform .25s, box-shadow .25s, background .25s; letter-spacing:-.01em;
 }
 .btn-primary:hover { transform:translateY(-2px); box-shadow:0 12px 32px rgba(242,94,122,.38); background:var(--pink-dark); }
- 
+
 .btn-secondary {
   display:inline-flex; align-items:center; gap:8px;
   background:transparent; color:var(--white);
@@ -55,7 +55,7 @@ body { font-family:'Plus Jakarta Sans',sans-serif; color:var(--dark); background
   text-decoration:none; cursor:pointer; transition:border-color .2s, background .2s;
 }
 .btn-secondary:hover { border-color:var(--white); background:rgba(255,255,255,.1); }
- 
+
 .btn-dark {
   display:inline-flex; align-items:center; gap:8px;
   background:var(--teal); color:var(--white);
@@ -64,7 +64,7 @@ body { font-family:'Plus Jakarta Sans',sans-serif; color:var(--dark); background
   text-decoration:none; border:none; cursor:pointer; transition:transform .25s, box-shadow .25s;
 }
 .btn-dark:hover { transform:translateY(-2px); box-shadow:0 12px 32px rgba(14,115,115,.35); }
- 
+
 /* ── NAV ── */
 nav {
   position:fixed; top:0; left:0; right:0; z-index:200;
@@ -103,7 +103,7 @@ nav.scrolled .lang-toggle { background:var(--g100); border-color:var(--g200); co
 .burger { display:none; flex-direction:column; gap:5px; cursor:pointer; }
 .burger span { width:24px; height:2px; background:white; border-radius:2px; transition:background .3s; }
 nav.scrolled .burger span { background:var(--dark); }
- 
+
 /* ── HERO ── */
 .hero {
   position:relative; height:100vh; min-height:640px;
@@ -111,11 +111,10 @@ nav.scrolled .burger span { background:var(--dark); }
 }
 .hero-video-wrap { position:absolute; inset:0; }
 .hero-video-wrap video { width:100%; height:100%; object-fit:cover; }
-.hero-bg-fallback {
+..hero-bg-fallback {
   position:absolute; inset:0;
   background:
-    linear-gradient(160deg, rgba(10,25,25,.88) 0%, rgba(14,115,115,.6) 55%, rgba(166,10,51,.3) 100%),
-    url('https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=1800&q=85') center/cover no-repeat;
+    linear-gradient(160deg, rgba(10,25,25,.88) 0%, rgba(14,115,115,.6) 55%, rgba(166,10,51,.3) 100%);
 }
 .hero-video-wrap::after {
   content:''; position:absolute; inset:0;
@@ -155,7 +154,7 @@ nav.scrolled .burger span { background:var(--dark); }
   display:flex; justify-content:center; padding-top:8px;
 }
 .hero-scroll-dot span { width:4px; height:8px; background:white; border-radius:2px; animation:scrollDot 1.8s ease-in-out infinite; }
- 
+
 /* ── STRIP ── */
 .strip { background:var(--teal); overflow:hidden; }
 .strip-inner { display:flex; white-space:nowrap; animation:marquee 22s linear infinite; }
@@ -165,7 +164,7 @@ nav.scrolled .burger span { background:var(--dark); }
   text-transform:uppercase; flex-shrink:0;
 }
 .strip-inner span::before { content:'✦'; color:var(--pink); font-size:10px; }
- 
+
 /* ── SECTION BASE ── */
 .section { padding:100px 48px; }
 .section-inner { max-width:1180px; margin:0 auto; }
@@ -175,7 +174,7 @@ nav.scrolled .burger span { background:var(--dark); }
   line-height:1.1; letter-spacing:-.02em; margin-bottom:16px;
 }
 .section-header p { font-size:17px; color:var(--g500); max-width:500px; margin:0 auto; line-height:1.65; }
- 
+
 /* ── 3D ICON STEPS ── */
 .steps-grid {
   display:grid; grid-template-columns:repeat(3,1fr); gap:28px;
@@ -195,7 +194,7 @@ nav.scrolled .burger span { background:var(--dark); }
   transition:opacity .35s;
 }
 .step-card:hover::before { opacity:2; }
- 
+
 /* 3D icon container */
 .icon3d {
   width:80px; height:80px; margin:0 auto 28px;
@@ -224,7 +223,7 @@ nav.scrolled .burger span { background:var(--dark); }
   background:rgba(0,0,0,.18); filter:blur(2px); z-index:-1;
 }
 .icon3d-body svg { width:32px; height:32px; stroke:white; stroke-width:2; fill:none; stroke-linecap:round; stroke-linejoin:round; }
- 
+
 .step-card h3 { font-size:20px; font-weight:700; margin-bottom:12px; letter-spacing:-.02em; text-align:center; }
 .step-card p { font-size:15px; color:var(--g500); line-height:1.65; text-align:center; }
 .step-num {
@@ -232,13 +231,13 @@ nav.scrolled .burger span { background:var(--dark); }
   font-family:'Fraunces',serif; font-size:48px; font-weight:700;
   color:var(--g200); line-height:1; letter-spacing:-.03em; pointer-events:none;
 }
- 
+
 /* ── PHOTO GRID (viajeros felices) ── */
 .photos-section { padding:80px 48px; background:var(--g100); }
 .photos-header { text-align:center; margin-bottom:48px; }
 .photos-header h2 { font-family:'Fraunces',serif; font-size:clamp(28px,3.5vw,46px); font-weight:700; letter-spacing:-.02em; margin-bottom:12px; }
 .photos-header p { font-size:16px; color:var(--g500); }
- 
+
 .photo-masonry {
   max-width:1180px; margin:0 auto;
   display:grid;
@@ -268,7 +267,7 @@ nav.scrolled .burger span { background:var(--dark); }
   opacity:0; transform:translateY(8px); transition:opacity .3s, transform .3s;
 }
 .photo-item:hover .photo-caption { opacity:1; transform:translateY(0); }
- 
+
 /* Mosaic layout */
 .photo-item:nth-child(1) { grid-column:1/3; grid-row:1/2; height:320px; }
 .photo-item:nth-child(2) { grid-column:3/4; grid-row:1/2; height:320px; }
@@ -276,7 +275,7 @@ nav.scrolled .burger span { background:var(--dark); }
 .photo-item:nth-child(4) { grid-column:1/2; grid-row:2/3; height:260px; }
 .photo-item:nth-child(5) { grid-column:2/4; grid-row:2/3; height:260px; }
 .photo-item:nth-child(6) { grid-column:4/5; grid-row:2/3; height:260px; }
- 
+
 /* ── SHOWCASE (dark) ── */
 .showcase {
   background:var(--dark); padding:100px 48px; overflow:hidden; position:relative;
@@ -309,7 +308,7 @@ nav.scrolled .burger span { background:var(--dark); }
   box-shadow:0 4px 12px rgba(14,115,115,.35);
 }
 .feat-icon svg { width:16px; height:16px; stroke:white; stroke-width:2.5; fill:none; stroke-linecap:round; stroke-linejoin:round; }
- 
+
 /* phone mockup */
 .showcase-visual { position:relative; }
 .phone-mockup {
@@ -334,7 +333,7 @@ nav.scrolled .burger span { background:var(--dark); }
 }
 .badge-1 { top:60px; left:-80px; animation:float 3.5s ease-in-out infinite; }
 .badge-2 { bottom:100px; right:-70px; animation:float 4s ease-in-out infinite .8s; }
- 
+
 /* ── STATS ── */
 .stats { background:var(--g100); padding:80px 48px; }
 .stats-inner {
@@ -354,7 +353,7 @@ nav.scrolled .burger span { background:var(--dark); }
   line-height:1; margin-bottom:8px;
 }
 .stat-label { font-size:13px; color:var(--g500); font-weight:500; line-height:1.4; }
- 
+
 /* ── AI SECTION ── */
 .ai-section { padding:100px 48px; background:var(--white); }
 .ai-inner {
@@ -385,7 +384,7 @@ nav.scrolled .burger span { background:var(--dark); }
 .ai-perk-icon svg { width:22px; height:22px; stroke:var(--teal); stroke-width:2; fill:none; stroke-linecap:round; stroke-linejoin:round; }
 .ai-perk-text h4 { font-size:15px; font-weight:700; margin-bottom:3px; }
 .ai-perk-text p { font-size:14px; color:var(--g500); line-height:1.55; }
- 
+
 /* ── PRICING ── */
 .pricing { padding:100px 48px; background:var(--off); }
 .pricing-grid {
@@ -432,7 +431,7 @@ nav.scrolled .burger span { background:var(--dark); }
 .pricing-info svg { width:22px; height:22px; stroke:var(--teal); stroke-width:2; fill:none; flex-shrink:0; }
 .pricing-info p { font-size:14px; color:var(--teal-dark); line-height:1.55; }
 .pricing-info strong { font-weight:700; }
- 
+
 /* ── TESTIMONIALS ── */
 .testimonials { padding:100px 48px; }
 .testimonials-grid { max-width:1100px; margin:64px auto 0; display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
@@ -444,7 +443,7 @@ nav.scrolled .burger span { background:var(--dark); }
 .author-avatar { width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:14px; font-weight:700; color:white; flex-shrink:0; }
 .author-name { font-size:14px; font-weight:700; color:var(--dark); }
 .author-meta { font-size:12px; color:var(--g500); }
- 
+
 /* ── DOWNLOAD ── */
 .download { background:linear-gradient(135deg,var(--dark) 0%,#1A2C2C 100%); padding:120px 48px; position:relative; overflow:hidden; text-align:center; }
 .download::before { content:''; position:absolute; top:-200px; left:50%; transform:translateX(-50%); width:800px; height:400px; border-radius:50%; background:radial-gradient(ellipse,rgba(242,94,122,.18),transparent 65%); }
@@ -465,7 +464,7 @@ nav.scrolled .burger span { background:var(--dark); }
 .store-btn-text small { display:block; font-size:10px; color:rgba(255,255,255,.55); text-transform:uppercase; letter-spacing:.05em; }
 .store-btn-text strong { display:block; font-size:16px; font-weight:700; }
 .download-note { font-size:13px; color:rgba(255,255,255,.4); }
- 
+
 /* ── CONTACT ── */
 .contact { padding:100px 48px; background:var(--white); }
 .contact-inner { max-width:800px; margin:0 auto; text-align:center; }
@@ -483,7 +482,7 @@ nav.scrolled .burger span { background:var(--dark); }
 .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color:var(--pink); box-shadow:0 0 0 3px rgba(242,94,122,.12); }
 .form-group textarea { resize:vertical; min-height:110px; }
 .form-submit { grid-column:1/-1; text-align:center; margin-top:8px; }
- 
+
 /* ── FOOTER ── */
 footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,.6); }
 .footer-inner { max-width:1180px; margin:0 auto; display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:48px; margin-bottom:56px; }
@@ -496,23 +495,23 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
 .social-links { display:flex; gap:14px; }
 .social-link { width:36px; height:36px; border:1px solid rgba(255,255,255,.15); border-radius:50%; display:flex; align-items:center; justify-content:center; color:rgba(255,255,255,.6); text-decoration:none; font-size:14px; transition:border-color .2s, color .2s; }
 .social-link:hover { border-color:var(--pink); color:var(--pink); }
- 
+
 /* ── MOBILE MENU ── */
 .mobile-menu { display:none; position:fixed; inset:0; z-index:190; background:var(--dark); flex-direction:column; align-items:center; justify-content:center; gap:28px; }
 .mobile-menu.open { display:flex; }
 .mobile-menu a { font-size:24px; font-weight:700; color:white; text-decoration:none; letter-spacing:-.02em; }
 .mobile-menu a:hover { color:var(--pink); }
 .mobile-close { position:absolute; top:24px; right:24px; background:none; border:none; color:white; font-size:28px; cursor:pointer; padding:8px; }
- 
+
 /* ── ANIMATIONS ── */
 @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
 @keyframes float { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
 @keyframes scrollDot { 0%{opacity:1;transform:translateY(0)} 80%{opacity:0;transform:translateY(12px)} 100%{opacity:0;transform:translateY(0)} }
 @keyframes marquee { from{transform:translateX(0)} to{transform:translateX(-50%)} }
- 
+
 .reveal { opacity:0; transform:translateY(32px); transition:opacity .7s ease, transform .7s ease; }
 .reveal.visible { opacity:1; transform:translateY(0); }
- 
+
 /* ── RESPONSIVE ── */
 @media(max-width:1100px) {
   .photo-masonry { grid-template-columns:repeat(3,1fr); }
@@ -547,7 +546,7 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
 </style>
 </head>
 <body>
- 
+
 <!-- MOBILE MENU -->
 <div class="mobile-menu" id="mobileMenu">
   <button class="mobile-close" id="mobileClose">✕</button>
@@ -559,11 +558,13 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
     <span id="mm-dl">Descargar App</span>
   </a>
 </div>
- 
+
 <!-- NAV -->
 <nav id="navbar">
   <a href="#" class="logo">
-    <img src="Logo_Vanlocker_Sin fondo.jpg" alt="Vanlocker" style="height:70px;width:auto;">
+        <img src="Logo_Vanlocker_Sin fondo.jpg" 
+     alt="Vanlocker" 
+     style="height:300px;width:auto;">
   </a>
   <ul class="nav-links">
     <li><a href="#como-funciona" id="nav-how">Cómo funciona</a></li>
@@ -575,7 +576,7 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
   </ul>
   <div class="burger" id="burgerBtn"><span></span><span></span><span></span></div>
 </nav>
- 
+
 <!-- HERO -->
 <section class="hero" id="inicio">
   <div class="hero-video-wrap">
@@ -601,7 +602,7 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
     <span id="hero-scroll-txt">Descubre más</span>
   </div>
 </section>
- 
+
 <!-- STRIP -->
 <div class="strip">
   <div class="strip-inner" id="strip">
@@ -613,7 +614,7 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
     <span>Sevilla centro</span><span>Triana &amp; Nervión</span>
   </div>
 </div>
- 
+
 <!-- HOW IT WORKS — 3D ICONS -->
 <section class="section" id="como-funciona">
   <div class="section-inner">
@@ -623,19 +624,20 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
       <p id="how-p">Tan sencillo como pedir un taxi. Todo desde la app, en minutos.</p>
     </div>
     <div class="steps-grid">
- 
+
       <!-- Paso 1 -->
       <div class="step-card reveal">
         <div class="step-num">01</div>
         <div class="icon3d">
-          <div class="icon3d-body pink" style="background:none;box-shadow:none;overflow:visible;">
-            <img src="1773690550943_ChatGPT_Image_16_mar_2026__20_48_35.png" style="width:64px;height:64px;object-fit:contain;">
+          <div class="icon3d-body pink">
+            <!-- Icono: teléfono/app -->
+            <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="9" y1="7" x2="15" y2="7"/><line x1="9" y1="11" x2="15" y2="11"/><circle cx="12" cy="17" r="1" fill="white" stroke="none"/></svg>
           </div>
         </div>
         <h3 id="step1-h">Reserva en la app</h3>
         <p id="step1-p">Indica dónde recoger, dónde entregar y cuándo. Elige tu franja horaria y confirma en segundos.</p>
       </div>
- 
+
       <!-- Paso 2 -->
       <div class="step-card reveal">
         <div class="step-num">02</div>
@@ -648,7 +650,7 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
         <h3 id="step2-h">Recogemos en tu puerta</h3>
         <p id="step2-p">Un conductor verificado llega en la hora acordada. Seguimiento en tiempo real desde la app.</p>
       </div>
- 
+
       <!-- Paso 3 -->
       <div class="step-card reveal">
         <div class="step-num">03</div>
@@ -661,11 +663,11 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
         <h3 id="step3-h">Disfruta sin cargas</h3>
         <p id="step3-p">Recorre Sevilla con total libertad. Te entregamos el equipaje donde quieras, cuando quieras.</p>
       </div>
- 
+
     </div>
   </div>
 </section>
- 
+
 <!-- PHOTO GRID — viajeros felices -->
 <section class="photos-section">
   <div class="photos-header reveal">
@@ -674,46 +676,46 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
     <p id="photos-p">Miles de viajeros ya exploran la ciudad con las manos libres gracias a Vanlocker.</p>
   </div>
   <div class="photo-masonry">
- 
+
     <div class="photo-item">
       <!-- Pareja feliz en plaza de España -->
       <img src="https://images.unsplash.com/photo-1501555088652-021faa106b9b?w=800&q=80&fit=crop" alt="Viajeros disfrutando en Sevilla" loading="lazy">
       <div class="photo-caption" id="pc1">😊 Sin maletas, más sonrisas</div>
     </div>
- 
+
     <div class="photo-item">
       <!-- Turista con café, relajado -->
       <img src="https://images.unsplash.com/photo-1527631746610-bca00a040d60?w=600&q=80&fit=crop" alt="Viajera tomando café sin preocupaciones" loading="lazy">
       <div class="photo-caption" id="pc2">☕ Tiempo para lo que importa</div>
     </div>
- 
+
     <div class="photo-item">
       <!-- Familia pasando en ciudad -->
       <img src="https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?w=600&q=80&fit=crop" alt="Familia disfrutando de la ciudad" loading="lazy">
       <div class="photo-caption" id="pc3">👨‍👩‍👧 Perfecta para familias</div>
     </div>
- 
+
     <div class="photo-item">
       <!-- Amigos en azotea/terraza -->
       <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=500&q=80&fit=crop" alt="Amigos viajando libres" loading="lazy">
       <div class="photo-caption" id="pc4">🎉 Viajes sin límites</div>
     </div>
- 
+
     <div class="photo-item">
       <!-- Calles de Sevilla / viajeros -->
       <img src="https://images.unsplash.com/photo-1520175480921-4edfa2983e0f?w=800&q=80&fit=crop" alt="Explorar Sevilla con libertad" loading="lazy">
       <div class="photo-caption" id="pc5">🗺️ Explora cada rincón de Sevilla</div>
     </div>
- 
+
     <div class="photo-item">
       <!-- Mujer con sombrero / verano -->
       <img src="https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=500&q=80&fit=crop" alt="Viajera feliz sin equipaje" loading="lazy">
       <div class="photo-caption" id="pc6">✨ Libre y feliz</div>
     </div>
- 
+
   </div>
 </section>
- 
+
 <!-- SHOWCASE DARK -->
 <section class="showcase">
   <div class="showcase-inner">
@@ -760,7 +762,7 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
     </div>
   </div>
 </section>
- 
+
 <!-- STATS -->
 <section class="stats">
   <div class="stats-inner">
@@ -770,7 +772,7 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
     <div class="stat-item reveal"><div class="stat-num" data-target="5" data-suffix="★">0</div><div class="stat-label" id="stat4-l">Valoración en Google Play</div></div>
   </div>
 </section>
- 
+
 <!-- AI SECTION -->
 <section class="ai-section" id="ia">
   <div class="ai-inner">
@@ -811,7 +813,7 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
     </div>
   </div>
 </section>
- 
+
 <!-- PRICING — precios actualizados -->
 <section class="pricing" id="precios">
   <div class="section-inner">
@@ -821,7 +823,7 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
       <p id="price-p">Sin letra pequeña. El precio que ves es el precio que pagas.</p>
     </div>
     <div class="pricing-grid">
- 
+
       <!-- PLAN BÁSICO -->
       <div class="price-card reveal">
         <div class="price-label" id="p1-label">Servicio individual</div>
@@ -835,7 +837,7 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
           <li id="p1-f4">Pago seguro con Stripe</li>
         </ul>
       </div>
- 
+
       <!-- PLAN FAMILIA — DESTACADO -->
       <div class="price-card featured reveal">
         <div class="price-badge" id="p2-badge">⚡ Más popular</div>
@@ -851,7 +853,7 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
           <li id="p2-f5">Perfecto para familias</li>
         </ul>
       </div>
- 
+
       <!-- PLAN GRUPO -->
       <div class="price-card reveal">
         <div class="price-label" id="p3-label">Grupo (5+ maletas)</div>
@@ -866,7 +868,7 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
           <li id="p3-f5">Atención directa 24h</li>
         </ul>
       </div>
- 
+
     </div>
     <!-- Nota informativa -->
     <div class="pricing-info reveal">
@@ -875,7 +877,7 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
     </div>
   </div>
 </section>
- 
+
 <!-- TESTIMONIALS -->
 <section class="testimonials" id="opiniones">
   <div class="section-inner">
@@ -911,7 +913,7 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
     </div>
   </div>
 </section>
- 
+
 <!-- DOWNLOAD -->
 <section class="download" id="descarga">
   <div class="download-inner reveal">
@@ -937,7 +939,7 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
     <p class="download-note" id="dl-note">✓ Gratis · ✓ Sin anuncios · ✓ Pago seguro por Stripe</p>
   </div>
 </section>
- 
+
 <!-- CONTACT -->
 <section class="contact" id="contacto">
   <div class="contact-inner reveal">
@@ -966,13 +968,14 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
     </form>
   </div>
 </section>
- 
+
 <!-- FOOTER -->
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
       <a href="#" class="logo">
-        <img src="Logo_Vanlocker_Sin fondo.jpg" alt="Vanlocker" style="height:50px;width:auto;filter:brightness(0) invert(1);">
+        <div class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M7 6V5a2 2 0 014 0v1M13 6V5a2 2 0 014 0v1"/><line x1="3" y1="11" x2="21" y2="11"/></svg></div>
+        <span class="logo-name">Van<span>locker</span></span>
       </a>
       <p id="footer-desc">Tu servicio de custodia y entrega de equipaje en Sevilla. Libérate, disfruta, vuelve.</p>
     </div>
@@ -1011,23 +1014,23 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
     </div>
   </div>
 </footer>
- 
+
 <script>
 // NAV SCROLL
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => navbar.classList.toggle('scrolled', scrollY > 60));
- 
+
 // BURGER
 document.getElementById('burgerBtn').addEventListener('click', () => document.getElementById('mobileMenu').classList.add('open'));
 document.getElementById('mobileClose').addEventListener('click', closeMobile);
 function closeMobile() { document.getElementById('mobileMenu').classList.remove('open'); }
- 
+
 // REVEAL
 const obs = new IntersectionObserver(entries => {
   entries.forEach((e,i) => { if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*80); obs.unobserve(e.target); } });
 }, { threshold:.12 });
 document.querySelectorAll('.reveal').forEach(r => obs.observe(r));
- 
+
 // COUNTERS
 function animateCounter(el) {
   const target = parseInt(el.dataset.target);
@@ -1045,7 +1048,7 @@ const statObs = new IntersectionObserver(entries => {
 }, { threshold:.3 });
 const statsEl = document.querySelector('.stats');
 if(statsEl) statObs.observe(statsEl);
- 
+
 // FORM
 function handleForm(e) {
   e.preventDefault();
@@ -1054,7 +1057,7 @@ function handleForm(e) {
   btn.style.background = 'var(--teal)';
   setTimeout(() => { btn.innerHTML = '<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22,2 15,22 11,13 2,9"/></svg> Enviar mensaje'; btn.style.background=''; }, 3000);
 }
- 
+
 // LANGUAGE
 const isES = { v: true };
 const T = {
@@ -1157,7 +1160,7 @@ const T = {
     'mm-how':'How it works','mm-ai':'AI Guide','mm-prices':'Pricing','mm-contact':'Contact','mm-dl':'Get the App',
   }
 };
- 
+
 function toggleLang() {
   isES.v = !isES.v;
   document.documentElement.lang = isES.v ? 'es' : 'en';
@@ -1178,4 +1181,3 @@ function toggleLang() {
 </script>
 </body>
 </html>
- 
