@@ -954,6 +954,75 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
 </section>
 
 <!-- FOOTER -->
+  <!-- SOBRE NOSOTROS (oculto) -->
+<section id="sobre-nosotros" style="display:none; padding:100px 48px; background:var(--off);">
+  <div style="max-width:900px; margin:0 auto;">
+    <div class="tag">Nuestra historia</div>
+    <h2 style="font-family:'Montserrat',sans-serif; font-size:clamp(32px,4vw,52px); font-weight:800; letter-spacing:-.02em; margin-bottom:32px; line-height:1.1;">
+      Nacimos de un domingo de lluvia, <em style="font-style:italic; color:var(--pink)">maletas y niños</em>
+    </h2>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:center; margin-bottom:64px;">
+      <div>
+        <p style="font-size:17px; line-height:1.8; color:var(--g800); margin-bottom:20px;">
+          Todo empezó hace un año, un domingo lluvioso en Madrid. Éramos un grupo de amigos de viaje con niños pequeños. Habíamos dejado el Airbnb a las 11 de la mañana y necesitábamos guardar las maletas hasta coger el AVE en Atocha.
+        </p>
+        <p style="font-size:17px; line-height:1.8; color:var(--g800); margin-bottom:20px;">
+          Cogimos un taxi hasta un locker cerca del Prado — lleno. Caminamos bajo la lluvia con los niños y las maletas hasta otro locker cerca de Atocha. Lo dejamos, nos fuimos al Retiro. Tres horas después, de vuelta al locker, y de ahí andando con maletas, paraguas y niños hasta la estación.
+        </p>
+        <p style="font-size:17px; line-height:1.8; color:var(--g800);">
+          En ese momento nació la pregunta que cambió todo: <strong style="color:var(--teal);">¿Por qué no existe un servicio que te recoja las maletas y te las entregue donde las necesitas?</strong>
+        </p>
+      </div>
+      <div style="background:linear-gradient(135deg, var(--teal), var(--teal-dark)); border-radius:28px; padding:40px; color:white;">
+        <div style="font-size:64px; margin-bottom:16px;">🧳</div>
+        <h3 style="font-family:'Montserrat',sans-serif; font-size:24px; font-weight:800; margin-bottom:12px;">Nuestra misión</h3>
+        <p style="font-size:16px; line-height:1.7; color:rgba(255,255,255,0.85);">
+          Que ningún viajero tenga que cargar con sus maletas mientras disfruta de una ciudad. Libérate del equipaje, vive la experiencia.
+        </p>
+      </div>
+    </div>
+
+    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-bottom:64px;">
+      <div style="background:white; border-radius:20px; padding:32px; border:1px solid var(--g200); text-align:center;">
+        <div style="font-size:48px; font-weight:800; font-family:'Montserrat',sans-serif; background:linear-gradient(135deg,var(--pink),var(--pink-dark)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px;">1</div>
+        <div style="font-size:14px; color:var(--g500); font-weight:500;">año transformando<br>la experiencia viajera</div>
+      </div>
+      <div style="background:white; border-radius:20px; padding:32px; border:1px solid var(--g200); text-align:center;">
+        <div style="font-size:48px; font-weight:800; font-family:'Montserrat',sans-serif; background:linear-gradient(135deg,var(--pink),var(--pink-dark)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px;">5</div>
+        <div style="font-size:14px; color:var(--g500); font-weight:500;">personas apasionadas<br>por el viaje</div>
+      </div>
+      <div style="background:white; border-radius:20px; padding:32px; border:1px solid var(--g200); text-align:center;">
+        <div style="font-size:48px; font-weight:800; font-family:'Montserrat',sans-serif; background:linear-gradient(135deg,var(--pink),var(--pink-dark)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:8px;">∞</div>
+        <div style="font-size:14px; color:var(--g500); font-weight:500;">ganas de seguir<br>creciendo</div>
+      </div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,var(--pink),var(--pink-dark)); border-radius:28px; padding:48px; text-align:center; color:white;">
+      <h3 style="font-family:'Montserrat',sans-serif; font-size:28px; font-weight:800; margin-bottom:16px;">¿Quieres vivir Sevilla sin cargas?</h3>
+      <p style="font-size:16px; color:rgba(255,255,255,0.85); margin-bottom:32px;">Descarga la app y libérate del equipaje desde tu primera reserva.</p>
+      <a href="https://play.google.com/store/apps/details?id=com.vanlocker.cliente" class="btn-secondary" style="display:inline-flex;">
+        Descargar gratis en Google Play
+      </a>
+    </div>
+  </div>
+</section>
+
+<script>
+function mostrarSobreNosotros() {
+  const seccion = document.getElementById('sobre-nosotros');
+  if (seccion.style.display === 'none') {
+    seccion.style.display = 'block';
+    seccion.style.opacity = '0';
+    seccion.style.transition = 'opacity 0.5s ease';
+    setTimeout(() => { seccion.style.opacity = '1'; }, 10);
+    seccion.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } else {
+    seccion.style.display = 'none';
+  }
+}
+</script>
+
 <footer>
   <div class="footer-inner">
     <div class="footer-brand">
@@ -974,7 +1043,7 @@ footer { background:var(--dark); padding:64px 48px 36px; color:rgba(255,255,255,
     <div class="footer-col">
       <h4 id="fc2-title">Empresa</h4>
       <ul>
-        <li><a href="#" id="fc2-1">Sobre nosotros</a></li>
+        <li><a href="#" id="fc2-1" onclick="mostrarSobreNosotros(); return false;">Sobre nosotros</a></li>
         <li><a href="#contacto" id="fc2-2">Contacto</a></li>
         <li><a href="#" id="fc2-3">Trabaja con nosotros</a></li>
       </ul>
