@@ -73,7 +73,7 @@ nav {
   transition:background .4s, backdrop-filter .4s, padding .3s;
 }
 nav.scrolled {
-  background:rgba(255,255,255,.94); backdrop-filter:blur(18px);
+  background:rgba(14,115,115,0.97);; backdrop-filter:blur(18px);
   padding:14px 48px; box-shadow:0 1px 0 rgba(0,0,0,.07);
 }
 .logo { display:flex; align-items:center; gap:10px; text-decoration:none; }
@@ -84,17 +84,17 @@ nav.scrolled {
 .logo-mark svg { width:24px; height:24px; fill:none; stroke:white; stroke-width:2; stroke-linecap:round; stroke-linejoin:round; }
 .logo-name { font-size:20px; font-weight:800; color:var(--white); letter-spacing:-.5px; transition:color .3s; }
 .logo-name span { color:var(--pink); }
-nav.scrolled .logo-name { color:var(--dark); }
+nav.scrolled .logo-name { color:var(--white); }
 .nav-links { display:flex; align-items:center; gap:36px; list-style:none; }
 .nav-links a { font-size:14px; font-weight:500; text-decoration:none; color:rgba(255,255,255,.88); transition:opacity .2s; }
-nav.scrolled .nav-links a { color:var(--g800); }
+nav.scrolled .nav-links a { color:var(--white); }
 .nav-links a:hover { opacity:.65; }
 .lang-toggle {
   font-size:13px; font-weight:600; cursor:pointer;
   background:rgba(255,255,255,.15); border:1px solid rgba(255,255,255,.3);
   color:white; padding:6px 14px; border-radius:50px; transition:background .2s;
 }
-nav.scrolled .lang-toggle { background:var(--g100); border-color:var(--g200); color:var(--dark); }
+nav.scrolled .lang-toggle { background:rgba(255,255,255,.15); border-color:rgba(255,255,255,.3); color:var(--white); }
 .nav-cta-btn {
   background:var(--pink); color:white !important; padding:10px 22px;
   border-radius:50px; font-weight:700 !important; font-size:14px !important;
